@@ -96,4 +96,4 @@ ZenDesktop/
 ## 📄 License
 This project is licensed under the GPL-3.0 License. See the [LICENSE](LICENSE) file for details.
 
-Developed with ❤️ by **Lanbo & Antigravity Premium Design**.
+Developed with ❤️ by **Lanbo**.

@@ -30,4 +30,4 @@
 * 彻底解决 Windows 系统下的编码乱码 bug，所有选项整洁优雅。
 * 完美继承 Windows 11 原生亚克力（Acrylic）与毛玻璃微动特效，内存和 CPU 几乎 0 开销。
 ========================================================================
-© 2026 Lanbo & Antigravity Premium Design. All rights reserved.
+© 2026 Lanbo. All rights reserved.
