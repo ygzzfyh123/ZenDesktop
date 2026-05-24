@@ -564,9 +564,7 @@ const Theme g_themeTranslucentStartMenu = {{
     ThemeTargetStyles{L"Grid#TopLevelSuggestionsRoot", {
         L"Visibility=Collapsed"}},
     ThemeTargetStyles{L"TextBlock#Text", {
-        L"Foreground=$CommonFgBrush",
-        L"Shadow:=<ThemeShadow />",
-        L"Translation=0,0,4"}},
+        L"Foreground=$CommonFgBrush"}},
     ThemeTargetStyles{L"Microsoft.UI.Xaml.Controls.DropDownButton > Grid#RootGrid", {
         L"Background:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.3\"/>",
         L"BorderBrush:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.6\"/>",
@@ -5950,9 +5948,7 @@ const Theme g_themeTintedGlass = {{
     ThemeTargetStyles{L"Grid#TopLevelSuggestionsRoot", {
         L"Visibility=Collapsed"}},
     ThemeTargetStyles{L"TextBlock#Text", {
-        L"Foreground=$CommonFgBrush",
-        L"Shadow:=<ThemeShadow />",
-        L"Translation=0,0,4"}},
+        L"Foreground=$CommonFgBrush"}},
     ThemeTargetStyles{L"Microsoft.UI.Xaml.Controls.DropDownButton > Grid#RootGrid", {
         L"Background:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.3\"/>",
         L"BorderBrush:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.6\"/>",
