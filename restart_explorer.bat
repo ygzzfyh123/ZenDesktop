@@ -4,7 +4,9 @@ echo   ZenDesktop: Instantly Restart Explorer.exe
 echo ===================================================
 echo Killing explorer.exe...
 taskkill /f /im explorer.exe
+taskkill /f /im StartMenuExperienceHost.exe
+taskkill /f /im SearchHost.exe
 echo Starting explorer.exe...
 start explorer.exe
-echo Done! Explorer restarted successfully in 1 second.
+echo Done! All Shell host processes restarted successfully.
 exit
