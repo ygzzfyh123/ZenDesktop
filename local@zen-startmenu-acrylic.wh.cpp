@@ -2,7 +2,7 @@
 // @id              zen-startmenu-acrylic
 // @name            ZenDesktop: Start Menu Acrylic Styler
 // @description     Premium acrylic/frosted glass start menu themes with custom blur presets. Based on m417z's Start Menu Styler.
-// @version         2.1.0
+// @version         2.5.0
 // @author          Lanbo & m417z
 // @github          https://github.com/Liset999
 // @include         StartMenuExperienceHost.exe
@@ -564,7 +564,9 @@ const Theme g_themeTranslucentStartMenu = {{
     ThemeTargetStyles{L"Grid#TopLevelSuggestionsRoot", {
         L"Visibility=Collapsed"}},
     ThemeTargetStyles{L"TextBlock#Text", {
-        L"Foreground=$CommonFgBrush"}},
+        L"Foreground=$CommonFgBrush",
+        L"Shadow:=<ThemeShadow />",
+        L"Translation=0,0,4"}},
     ThemeTargetStyles{L"Microsoft.UI.Xaml.Controls.DropDownButton > Grid#RootGrid", {
         L"Background:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.3\"/>",
         L"BorderBrush:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.6\"/>",
@@ -5948,7 +5950,9 @@ const Theme g_themeTintedGlass = {{
     ThemeTargetStyles{L"Grid#TopLevelSuggestionsRoot", {
         L"Visibility=Collapsed"}},
     ThemeTargetStyles{L"TextBlock#Text", {
-        L"Foreground=$CommonFgBrush"}},
+        L"Foreground=$CommonFgBrush",
+        L"Shadow:=<ThemeShadow />",
+        L"Translation=0,0,4"}},
     ThemeTargetStyles{L"Microsoft.UI.Xaml.Controls.DropDownButton > Grid#RootGrid", {
         L"Background:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.3\"/>",
         L"BorderBrush:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.6\"/>",
