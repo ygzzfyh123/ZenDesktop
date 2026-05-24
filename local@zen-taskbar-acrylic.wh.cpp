@@ -2,7 +2,7 @@
 // @id              zen-taskbar-acrylic
 // @name            ZenDesktop: Taskbar Acrylic Styler
 // @description     Premium acrylic/frosted glass taskbar themes with custom blur presets. Based on m417z's Taskbar Styler.
-// @version         1.0.0
+// @version         2.1.0
 // @author          Lanbo & m417z
 // @github          https://github.com/Liset999
 // @include         explorer.exe
@@ -450,6 +450,8 @@ from the **TranslucentTB** project.
   - TranslucentTaskbar_Acrylic_High: "TranslucentTaskbar (Acrylic - High Translucent)"
   - TranslucentTaskbar_Acrylic: "TranslucentTaskbar (Acrylic - Standard)"
   - TranslucentTaskbar_Acrylic_Low: "TranslucentTaskbar (Acrylic - Low Translucent)"
+  - TranslucentTaskbar_Acrylic_90: "TranslucentTaskbar (Acrylic - 90% Opacity)"
+  - TranslucentTaskbar_Acrylic_80: "TranslucentTaskbar (Acrylic - 80% Opacity)"
   - TranslucentTaskbar_DarkGlass_High: "TranslucentTaskbar (Dark Glass - High Translucent)"
   - TranslucentTaskbar_DarkGlass: "TranslucentTaskbar (Dark Glass - Standard)"
   - TranslucentTaskbar_DarkGlass_Low: "TranslucentTaskbar (Dark Glass - Low Translucent)"
@@ -11176,6 +11178,12 @@ void ProcessAllStylesFromSettings() {
     } else if (wcscmp(themeName, L"TranslucentTaskbar_Acrylic_Low") == 0) {
         theme = &g_themeTranslucentTaskbar;
         overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"30\" TintColor=\"#80FFFFFF\"/>" };
+    } else if (wcscmp(themeName, L"TranslucentTaskbar_Acrylic_90") == 0) {
+        theme = &g_themeTranslucentTaskbar;
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"30\" TintColor=\"#E6FFFFFF\"/>" };
+    } else if (wcscmp(themeName, L"TranslucentTaskbar_Acrylic_80") == 0) {
+        theme = &g_themeTranslucentTaskbar;
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"30\" TintColor=\"#CCFFFFFF\"/>" };
     } else if (wcscmp(themeName, L"TranslucentTaskbar_DarkGlass_High") == 0) {
         theme = &g_themeTranslucentTaskbar;
         overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"30\" TintColor=\"#40121214\"/>" };

@@ -2,7 +2,7 @@
 // @id              zen-startmenu-acrylic
 // @name            ZenDesktop: Start Menu Acrylic Styler
 // @description     Premium acrylic/frosted glass start menu themes with custom blur presets. Based on m417z's Start Menu Styler.
-// @version         1.0.0
+// @version         2.1.0
 // @author          Lanbo & m417z
 // @github          https://github.com/Liset999
 // @include         StartMenuExperienceHost.exe
@@ -393,6 +393,8 @@ from the **TranslucentTB** project.
   - TranslucentStartMenu_Acrylic_High: "TranslucentStartMenu (Acrylic - High Translucent)"
   - TranslucentStartMenu_Acrylic: "TranslucentStartMenu (Acrylic - Standard)"
   - TranslucentStartMenu_Acrylic_Low: "TranslucentStartMenu (Acrylic - Low Translucent)"
+  - TranslucentStartMenu_Acrylic_90: "TranslucentStartMenu (Acrylic - 90% Opacity)"
+  - TranslucentStartMenu_Acrylic_80: "TranslucentStartMenu (Acrylic - 80% Opacity)"
   - TranslucentStartMenu_DarkGlass_High: "TranslucentStartMenu (Dark Glass - High Translucent)"
   - TranslucentStartMenu_DarkGlass: "TranslucentStartMenu (Dark Glass - Standard)"
   - TranslucentStartMenu_DarkGlass_Low: "TranslucentStartMenu (Dark Glass - Low Translucent)"
@@ -577,6 +579,8 @@ const Theme g_themeTranslucentStartMenu = {{
         L"Background:=$CommonBgBrush",
         L"BorderBrush:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.8\"/>",
         L"BorderThickness=1"}},
+    ThemeTargetStyles{L"StartMenu.FolderModal", {
+        L"Background:=<WindhawkBlur BlurAmount=\"20\" TintColor=\"#60000000\"/>"}},
     ThemeTargetStyles{L"ListViewItem > Grid#ContentBorder@CommonStates", {
         L"BorderBrush:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.8\"/>",
         L"BorderBrush@PointerOver:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"1\"/>",
@@ -5957,6 +5961,8 @@ const Theme g_themeTintedGlass = {{
         L"Background:=$CommonBgBrush",
         L"BorderBrush:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.8\"/>",
         L"BorderThickness=1"}},
+    ThemeTargetStyles{L"StartMenu.FolderModal", {
+        L"Background:=<WindhawkBlur BlurAmount=\"20\" TintColor=\"#60000000\"/>"}},
     ThemeTargetStyles{L"ListViewItem > Grid#ContentBorder@CommonStates", {
         L"BorderBrush:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.8\"/>",
         L"BorderBrush@PointerOver:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"1\"/>",
@@ -12726,6 +12732,18 @@ void ProcessAllStylesFromSettings() {
                     ? &g_themeTranslucentStartMenu
                     : &g_themeTranslucentStartMenu_variant_ClassicStartMenu;
         overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"30\" TintColor=\"#80FFFFFF\"/>" };
+        isCustomTheme = true;
+    } else if (wcscmp(themeName, L"TranslucentStartMenu_Acrylic_90") == 0) {
+        theme = g_isRedesignedStartMenu
+                    ? &g_themeTranslucentStartMenu
+                    : &g_themeTranslucentStartMenu_variant_ClassicStartMenu;
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"30\" TintColor=\"#E6FFFFFF\"/>" };
+        isCustomTheme = true;
+    } else if (wcscmp(themeName, L"TranslucentStartMenu_Acrylic_80") == 0) {
+        theme = g_isRedesignedStartMenu
+                    ? &g_themeTranslucentStartMenu
+                    : &g_themeTranslucentStartMenu_variant_ClassicStartMenu;
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"30\" TintColor=\"#CCFFFFFF\"/>" };
         isCustomTheme = true;
     } else if (wcscmp(themeName, L"TranslucentStartMenu_DarkGlass_High") == 0) {
         theme = g_isRedesignedStartMenu
