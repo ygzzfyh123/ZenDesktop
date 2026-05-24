@@ -444,6 +444,9 @@ from the **TranslucentTB** project.
   - "": None
   - TranslucentTaskbar: TranslucentTaskbar
   - TranslucentTaskbar_Clear: "TranslucentTaskbar (Clear - 100% Translucent)"
+  - TranslucentTaskbar_Clear_90: "TranslucentTaskbar (Clear - 90% Transparency)"
+  - TranslucentTaskbar_Clear_80: "TranslucentTaskbar (Clear - 80% Transparency)"
+  - TranslucentTaskbar_Clear_70: "TranslucentTaskbar (Clear - 70% Transparency)"
   - TranslucentTaskbar_LightFog_High: "TranslucentTaskbar (Light Fog - High Translucent)"
   - TranslucentTaskbar_LightFog: "TranslucentTaskbar (Light Fog - Standard)"
   - TranslucentTaskbar_LightFog_Low: "TranslucentTaskbar (Light Fog - Low Translucent)"
@@ -11162,6 +11165,15 @@ void ProcessAllStylesFromSettings() {
     } else if (wcscmp(themeName, L"TranslucentTaskbar_Clear") == 0) {
         theme = &g_themeTranslucentTaskbar;
         overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"0\" TintColor=\"#00000000\"/>" };
+    } else if (wcscmp(themeName, L"TranslucentTaskbar_Clear_90") == 0) {
+        theme = &g_themeTranslucentTaskbar;
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"0\" TintColor=\"#1A000000\"/>" };
+    } else if (wcscmp(themeName, L"TranslucentTaskbar_Clear_80") == 0) {
+        theme = &g_themeTranslucentTaskbar;
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"0\" TintColor=\"#33000000\"/>" };
+    } else if (wcscmp(themeName, L"TranslucentTaskbar_Clear_70") == 0) {
+        theme = &g_themeTranslucentTaskbar;
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"0\" TintColor=\"#4D000000\"/>" };
     } else if (wcscmp(themeName, L"TranslucentTaskbar_LightFog_High") == 0) {
         theme = &g_themeTranslucentTaskbar;
         overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"10\" TintColor=\"#0AFFFFFF\"/>" };

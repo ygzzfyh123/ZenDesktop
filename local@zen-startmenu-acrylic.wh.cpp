@@ -387,6 +387,9 @@ from the **TranslucentTB** project.
   - "": None
   - TranslucentStartMenu: TranslucentStartMenu
   - TranslucentStartMenu_Clear: "TranslucentStartMenu (Clear - 100% Translucent)"
+  - TranslucentStartMenu_Clear_90: "TranslucentStartMenu (Clear - 90% Transparency)"
+  - TranslucentStartMenu_Clear_80: "TranslucentStartMenu (Clear - 80% Transparency)"
+  - TranslucentStartMenu_Clear_70: "TranslucentStartMenu (Clear - 70% Transparency)"
   - TranslucentStartMenu_LightFog_High: "TranslucentStartMenu (Light Fog - High Translucent)"
   - TranslucentStartMenu_LightFog: "TranslucentStartMenu (Light Fog - Standard)"
   - TranslucentStartMenu_LightFog_Low: "TranslucentStartMenu (Light Fog - Low Translucent)"
@@ -12702,6 +12705,24 @@ void ProcessAllStylesFromSettings() {
                     ? &g_themeTranslucentStartMenu
                     : &g_themeTranslucentStartMenu_variant_ClassicStartMenu;
         overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"0\" TintColor=\"#00000000\"/>" };
+        isCustomTheme = true;
+    } else if (wcscmp(themeName, L"TranslucentStartMenu_Clear_90") == 0) {
+        theme = g_isRedesignedStartMenu
+                    ? &g_themeTranslucentStartMenu
+                    : &g_themeTranslucentStartMenu_variant_ClassicStartMenu;
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"0\" TintColor=\"#1A000000\"/>" };
+        isCustomTheme = true;
+    } else if (wcscmp(themeName, L"TranslucentStartMenu_Clear_80") == 0) {
+        theme = g_isRedesignedStartMenu
+                    ? &g_themeTranslucentStartMenu
+                    : &g_themeTranslucentStartMenu_variant_ClassicStartMenu;
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"0\" TintColor=\"#33000000\"/>" };
+        isCustomTheme = true;
+    } else if (wcscmp(themeName, L"TranslucentStartMenu_Clear_70") == 0) {
+        theme = g_isRedesignedStartMenu
+                    ? &g_themeTranslucentStartMenu
+                    : &g_themeTranslucentStartMenu_variant_ClassicStartMenu;
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"0\" TintColor=\"#4D000000\"/>" };
         isCustomTheme = true;
     } else if (wcscmp(themeName, L"TranslucentStartMenu_LightFog_High") == 0) {
         theme = g_isRedesignedStartMenu
