@@ -2,7 +2,7 @@
 // @id              zen-startmenu-acrylic
 // @name            ZenDesktop: Start Menu Acrylic Styler
 // @description     Premium acrylic/frosted glass start menu themes with custom blur presets. Based on m417z's Start Menu Styler.
-// @version         2.5.1
+// @version         2.6.0
 // @author          Lanbo & m417z
 // @github          https://github.com/Liset999
 // @include         StartMenuExperienceHost.exe
@@ -508,25 +508,30 @@ struct Theme {
 const Theme g_themeTranslucentStartMenu = {{
     ThemeTargetStyles{L"Border#AcrylicBorder", {
         L"Background:=$CommonBgBrush",
-        L"BorderThickness=0",
-        L"CornerRadius=15"}},
+        L"BorderThickness=1.2",
+        L"BorderBrush:=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"1,1\"><GradientStop Color=\"#4DFFFFFF\" Offset=\"0\"/><GradientStop Color=\"#13FFFFFF\" Offset=\"0.3\"/><GradientStop Color=\"#0AFFFFFF\" Offset=\"0.7\"/><GradientStop Color=\"#26FFFFFF\" Offset=\"1\"/></LinearGradientBrush>\"",
+        L"CornerRadius=18"}},
     ThemeTargetStyles{L"Border#AcrylicOverlay", {
-        L"Visibility=Collapsed"}},
+        L"Visibility=Visible",
+        L"CornerRadius=18",
+        L"Background:=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#1AFFFFFF\" Offset=\"0\"/><GradientStop Color=\"#03FFFFFF\" Offset=\"0.3\"/><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\"/><GradientStop Color=\"#05000000\" Offset=\"1\"/></LinearGradientBrush>\""}},
     ThemeTargetStyles{L"Border#BorderElement", {
         L"Background:=<WindhawkBlur BlurAmount=\"25\" TintColor=\"#15000000\"/>",
         L"BorderThickness=0",
-        L"CornerRadius=10"}},
+        L"CornerRadius=14"}},
     ThemeTargetStyles{L"MenuFlyoutPresenter > Border", {
         L"Background:=<WindhawkBlur BlurAmount=\"25\" TintColor=\"#22000000\"/>",
         L"BorderThickness=1"}},
     ThemeTargetStyles{L"Border#AppBorder", {
         L"Background:=$CommonBgBrush",
-        L"BorderThickness=0",
-        L"CornerRadius=15"}},
+        L"BorderThickness=1.2",
+        L"BorderBrush:=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"1,1\"><GradientStop Color=\"#4DFFFFFF\" Offset=\"0\"/><GradientStop Color=\"#13FFFFFF\" Offset=\"0.3\"/><GradientStop Color=\"#0AFFFFFF\" Offset=\"0.7\"/><GradientStop Color=\"#26FFFFFF\" Offset=\"1\"/></LinearGradientBrush>\"",
+        L"CornerRadius=18"}},
     ThemeTargetStyles{L"Border#AccentAppBorder", {
         L"Background:=$CommonBgBrush",
-        L"BorderThickness=0",
-        L"CornerRadius=15"}},
+        L"BorderThickness=1.2",
+        L"BorderBrush:=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"1,1\"><GradientStop Color=\"#4DFFFFFF\" Offset=\"0\"/><GradientStop Color=\"#13FFFFFF\" Offset=\"0.3\"/><GradientStop Color=\"#0AFFFFFF\" Offset=\"0.7\"/><GradientStop Color=\"#26FFFFFF\" Offset=\"1\"/></LinearGradientBrush>\"",
+        L"CornerRadius=18"}},
     ThemeTargetStyles{L"Border#LayerBorder", {
         L"Visibility=Collapsed"}},
     ThemeTargetStyles{L"Border#TaskbarSearchBackground", {
@@ -572,8 +577,8 @@ const Theme g_themeTranslucentStartMenu = {{
         L"Margin=-1"}},
     ThemeTargetStyles{L"Grid#TopLevelSuggestionsRoot", {
         L"Visibility=Collapsed"}},
-    ThemeTargetStyles{L"TextBlock#Text", {
-        L"Foreground=$CommonFgBrush"}},
+    // ThemeTargetStyles{L"TextBlock#Text", {
+    //     L"Foreground=$CommonFgBrush"}},
     ThemeTargetStyles{L"Microsoft.UI.Xaml.Controls.DropDownButton > Grid#RootGrid", {
         L"Background:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.3\"/>",
         L"BorderBrush:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.6\"/>",
@@ -596,12 +601,12 @@ const Theme g_themeTranslucentStartMenu = {{
     ThemeTargetStyles{L"StartMenu.FolderModal", {
         L"Background:=<WindhawkBlur BlurAmount=\"20\" TintColor=\"#60000000\"/>"}},
     ThemeTargetStyles{L"ListViewItem > Grid#ContentBorder@CommonStates", {
-        L"BorderBrush:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.8\"/>",
-        L"BorderBrush@PointerOver:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"1\"/>",
-        L"Background:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0\"/>",
-        L"Background@PointerOver:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.9\"/>",
+        L"BorderBrush:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.3\"/>",
+        L"BorderBrush@PointerOver:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.6\"/>",
+        L"Background:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.08\"/>",
+        L"Background@PointerOver:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.22\"/>",
         L"BorderThickness=1",
-        L"CornerRadius=5"}},
+        L"CornerRadius=8"}},
 }, {
     L"CommonBgBrush=<WindhawkBlur BlurAmount=\"25\" TintColor=\"#25323232\"/>",
     L"CommonFgBrush=White",
@@ -610,14 +615,17 @@ const Theme g_themeTranslucentStartMenu = {{
 const Theme g_themeTranslucentStartMenu_variant_ClassicStartMenu = {{
     ThemeTargetStyles{L"Border#AcrylicBorder", {
         L"Background:=$CommonBgBrush",
-        L"BorderThickness=0",
-        L"CornerRadius=15"}},
+        L"BorderThickness=1.2",
+        L"BorderBrush:=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"1,1\"><GradientStop Color=\"#4DFFFFFF\" Offset=\"0\"/><GradientStop Color=\"#13FFFFFF\" Offset=\"0.3\"/><GradientStop Color=\"#0AFFFFFF\" Offset=\"0.7\"/><GradientStop Color=\"#26FFFFFF\" Offset=\"1\"/></LinearGradientBrush>\"",
+        L"CornerRadius=18"}},
     ThemeTargetStyles{L"Border#AcrylicOverlay", {
-        L"Visibility=Collapsed"}},
+        L"Visibility=Visible",
+        L"CornerRadius=18",
+        L"Background:=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#1AFFFFFF\" Offset=\"0\"/><GradientStop Color=\"#03FFFFFF\" Offset=\"0.3\"/><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\"/><GradientStop Color=\"#05000000\" Offset=\"1\"/></LinearGradientBrush>\""}},
     ThemeTargetStyles{L"Border#BorderElement", {
         L"Background:=<WindhawkBlur BlurAmount=\"25\" TintColor=\"#15000000\"/>",
         L"BorderThickness=0",
-        L"CornerRadius=10"}},
+        L"CornerRadius=14"}},
     ThemeTargetStyles{L"Grid#ShowMoreSuggestions", {
         L"Visibility=Collapsed"}},
     ThemeTargetStyles{L"Grid#SuggestionsParentContainer", {
@@ -631,12 +639,14 @@ const Theme g_themeTranslucentStartMenu_variant_ClassicStartMenu = {{
         L"BorderThickness=0"}},
     ThemeTargetStyles{L"Border#AppBorder", {
         L"Background:=$CommonBgBrush",
-        L"BorderThickness=0",
-        L"CornerRadius=15"}},
+        L"BorderThickness=1.2",
+        L"BorderBrush:=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"1,1\"><GradientStop Color=\"#4DFFFFFF\" Offset=\"0\"/><GradientStop Color=\"#13FFFFFF\" Offset=\"0.3\"/><GradientStop Color=\"#0AFFFFFF\" Offset=\"0.7\"/><GradientStop Color=\"#26FFFFFF\" Offset=\"1\"/></LinearGradientBrush>\"",
+        L"CornerRadius=18"}},
     ThemeTargetStyles{L"Border#AccentAppBorder", {
         L"Background:=$CommonBgBrush",
-        L"BorderThickness=0",
-        L"CornerRadius=15"}},
+        L"BorderThickness=1.2",
+        L"BorderBrush:=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"1,1\"><GradientStop Color=\"#4DFFFFFF\" Offset=\"0\"/><GradientStop Color=\"#13FFFFFF\" Offset=\"0.3\"/><GradientStop Color=\"#0AFFFFFF\" Offset=\"0.7\"/><GradientStop Color=\"#26FFFFFF\" Offset=\"1\"/></LinearGradientBrush>\"",
+        L"CornerRadius=18"}},
     ThemeTargetStyles{L"Border#LayerBorder", {
         L"Visibility=Collapsed"}},
     ThemeTargetStyles{L"Border#TaskbarSearchBackground", {
@@ -5956,8 +5966,8 @@ const Theme g_themeTintedGlass = {{
         L"Margin=-1"}},
     ThemeTargetStyles{L"Grid#TopLevelSuggestionsRoot", {
         L"Visibility=Collapsed"}},
-    ThemeTargetStyles{L"TextBlock#Text", {
-        L"Foreground=$CommonFgBrush"}},
+    // ThemeTargetStyles{L"TextBlock#Text", {
+    //     L"Foreground=$CommonFgBrush"}},
     ThemeTargetStyles{L"Microsoft.UI.Xaml.Controls.DropDownButton > Grid#RootGrid", {
         L"Background:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.3\"/>",
         L"BorderBrush:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.6\"/>",
@@ -5980,12 +5990,12 @@ const Theme g_themeTintedGlass = {{
     ThemeTargetStyles{L"StartMenu.FolderModal", {
         L"Background:=<WindhawkBlur BlurAmount=\"20\" TintColor=\"#60000000\"/>"}},
     ThemeTargetStyles{L"ListViewItem > Grid#ContentBorder@CommonStates", {
-        L"BorderBrush:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.8\"/>",
-        L"BorderBrush@PointerOver:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"1\"/>",
-        L"Background:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0\"/>",
-        L"Background@PointerOver:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.9\"/>",
+        L"BorderBrush:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.3\"/>",
+        L"BorderBrush@PointerOver:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.6\"/>",
+        L"Background:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.08\"/>",
+        L"Background@PointerOver:=<RevealBorderBrush Color=\"Transparent\" TargetTheme=\"1\" Opacity=\"0.22\"/>",
         L"BorderThickness=1",
-        L"CornerRadius=5"}},
+        L"CornerRadius=8"}},
 }, {
     L"CommonBgBrush=<WindhawkBlur BlurAmount=\"18\" TintColor=\"#80000000\"/>",
     L"CommonFgBrush=White",
@@ -12755,19 +12765,19 @@ void ProcessAllStylesFromSettings() {
         theme = g_isRedesignedStartMenu
                     ? &g_themeTranslucentStartMenu
                     : &g_themeTranslucentStartMenu_variant_ClassicStartMenu;
-        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"30\" TintColor=\"#20FFFFFF\"/>", L"CommonFgBrush=White" };
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"35\" TintColor=\"#15FFFFFF\" TintOpacity=\"0.15\" TintSaturation=\"1.8\"/>", L"CommonFgBrush=White" };
         isCustomTheme = true;
     } else if (wcscmp(themeName, L"TranslucentStartMenu_Acrylic") == 0) {
         theme = g_isRedesignedStartMenu
                     ? &g_themeTranslucentStartMenu
                     : &g_themeTranslucentStartMenu_variant_ClassicStartMenu;
-        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"30\" TintColor=\"#50FFFFFF\"/>", L"CommonFgBrush=White" };
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"35\" TintColor=\"#30FFFFFF\" TintOpacity="0.3\" TintSaturation=\"1.8\"/>", L"CommonFgBrush=White" };
         isCustomTheme = true;
     } else if (wcscmp(themeName, L"TranslucentStartMenu_Acrylic_Low") == 0) {
         theme = g_isRedesignedStartMenu
                     ? &g_themeTranslucentStartMenu
                     : &g_themeTranslucentStartMenu_variant_ClassicStartMenu;
-        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"30\" TintColor=\"#80FFFFFF\"/>", L"CommonFgBrush=White" };
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"35\" TintColor=\"#50FFFFFF\" TintOpacity=\"0.5\" TintSaturation=\"1.8\"/>", L"CommonFgBrush=White" };
         isCustomTheme = true;
     } else if (wcscmp(themeName, L"TranslucentStartMenu_Acrylic_90") == 0) {
         theme = g_isRedesignedStartMenu
@@ -12797,19 +12807,19 @@ void ProcessAllStylesFromSettings() {
         theme = g_isRedesignedStartMenu
                     ? &g_themeTranslucentStartMenu
                     : &g_themeTranslucentStartMenu_variant_ClassicStartMenu;
-        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"30\" TintColor=\"#40121214\"/>", L"CommonFgBrush=White" };
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"35\" TintColor=\"#1C1C1E\" TintOpacity=\"0.15\" TintSaturation=\"1.8\"/>", L"CommonFgBrush=White" };
         isCustomTheme = true;
     } else if (wcscmp(themeName, L"TranslucentStartMenu_DarkGlass") == 0) {
         theme = g_isRedesignedStartMenu
                     ? &g_themeTranslucentStartMenu
                     : &g_themeTranslucentStartMenu_variant_ClassicStartMenu;
-        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"30\" TintColor=\"#80121214\"/>", L"CommonFgBrush=White" };
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"35\" TintColor=\"#1C1C1E\" TintOpacity=\"0.35\" TintSaturation=\"1.8\"/>", L"CommonFgBrush=White" };
         isCustomTheme = true;
     } else if (wcscmp(themeName, L"TranslucentStartMenu_DarkGlass_Low") == 0) {
         theme = g_isRedesignedStartMenu
                     ? &g_themeTranslucentStartMenu
                     : &g_themeTranslucentStartMenu_variant_ClassicStartMenu;
-        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"30\" TintColor=\"#C0121214\"/>", L"CommonFgBrush=White" };
+        overrideStyleConstants = { L"CommonBgBrush=<WindhawkBlur BlurAmount=\"35\" TintColor=\"#1C1C1E\" TintOpacity=\"0.6\" TintSaturation=\"1.8\"/>", L"CommonFgBrush=White" };
         isCustomTheme = true;
     } else if (wcscmp(themeName, L"TranslucentStartMenu_FrostedWhite") == 0) {
         theme = g_isRedesignedStartMenu
