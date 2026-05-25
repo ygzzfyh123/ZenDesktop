@@ -5168,19 +5168,19 @@ const Theme g_themeLiquidGlass = {{
     ThemeTargetStyles{L"Grid#AugmentedEntryPointContentGrid", {
         L"HorizontalAlignment=Left"}},
 }, {
-    L"Background=<WindhawkBlur BlurAmount=\"35\" TintColor=\"{ThemeResource SystemAltLowColor}\" TintOpacity=\"0.15\" TintSaturation=\"1.8\"/>",
-    L"ElementBackground=<WindhawkBlur BlurAmount=\"20\" TintColor=\"{ThemeResource SystemAltLowColor}\" TintOpacity=\"0.4\" />",
-    L"ElementBackground2=<WindhawkBlur BlurAmount=\"20\" TintColor=\"{ThemeResource SystemAltLowColor}\" TintOpacity=\"0.2\" />",
-    L"AccentBackground=<WindhawkBlur BlurAmount=\"15\" TintColor=\"{ThemeResource SystemAccentColorLight1}\" TintOpacity=\"0.2\" />",
-    L"BorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"1,1\"><GradientStop Color=\"#40FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#1500FFFF\" Offset=\"0.3\" /><GradientStop Color=\"#15FF00FF\" Offset=\"0.7\" /><GradientStop Color=\"#35FFFFFF\" Offset=\"1.0\" /></LinearGradientBrush>",
+    L"Background=<WindhawkBlur BlurAmount=\"18\" TintColor=\"{ThemeResource SystemAltLowColor}\" TintOpacity=\"0.06\" TintSaturation=\"2.0\"/>",
+    L"ElementBackground=<WindhawkBlur BlurAmount=\"12\" TintColor=\"{ThemeResource SystemAltLowColor}\" TintOpacity=\"0.3\" />",
+    L"ElementBackground2=<WindhawkBlur BlurAmount=\"12\" TintColor=\"{ThemeResource SystemAltLowColor}\" TintOpacity=\"0.15\" />",
+    L"AccentBackground=<WindhawkBlur BlurAmount=\"12\" TintColor=\"{ThemeResource SystemAccentColorLight1}\" TintOpacity=\"0.15\" />",
+    L"BorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"1,1\"><GradientStop Color=\"#B0FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#2000FFFF\" Offset=\"0.3\" /><GradientStop Color=\"#20FF00FF\" Offset=\"0.7\" /><GradientStop Color=\"#70000000\" Offset=\"1.0\" /></LinearGradientBrush>",
     L"ElementBorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#25FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#10FF00FF\" Offset=\"0.5\" /><GradientStop Color=\"#20FFFFFF\" Offset=\"1.0\" /></LinearGradientBrush>",
-    L"BorderThickness=1.2",
+    L"BorderThickness=1.5",
     L"ElementBorderThickness=0.3,0.3,0.3,1",
-    L"CornerRadius=18",
-    L"ElementCornerRadius=10",
-    L"ElementTileBG=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.12\" />",
-    L"ElementTileBGHover=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.26\" />",
-    L"ElementTileBGPressed=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.38\" />",
+    L"CornerRadius=25",
+    L"ElementCornerRadius=12",
+    L"ElementTileBG=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.05\" />",
+    L"ElementTileBGHover=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.15\" />",
+    L"ElementTileBGPressed=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.25\" />",
 }};
 
 const Theme g_themeLiquidGlass_variant_Alternate = {{
