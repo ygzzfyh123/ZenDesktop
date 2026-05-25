@@ -5135,7 +5135,9 @@ const Theme g_themeOversimplified_Accentuated = {{
 
 const Theme g_themeLiquidGlass = {{
     ThemeTargetStyles{L"Border#AcrylicOverlay", {
-        L"Visibility=1"}},
+        L"Visibility=Visible",
+        L"CornerRadius=$CornerRadius",
+        L"Background:=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#2AFFFFFF\" Offset=\"0\"/><GradientStop Color=\"#0AFFFFFF\" Offset=\"0.2\"/><GradientStop Color=\"#00FFFFFF\" Offset=\"0.4\"/><GradientStop Color=\"#03000000\" Offset=\"1\"/></LinearGradientBrush>\""}},
     ThemeTargetStyles{L"Border#AcrylicBorder", {
         L"Background:=$Background",
         L"BorderBrush:=$BorderBrush",
@@ -5147,12 +5149,20 @@ const Theme g_themeLiquidGlass = {{
         L"BorderThickness=$BorderThickness",
         L"CornerRadius=$CornerRadius"}},
     ThemeTargetStyles{L"Border#ContentBorder@CommonStates > Grid > Border#BackgroundBorder", {
+        L"Background@Normal:=$ElementTileBG",
+        L"Background@PointerOver:=$ElementTileBGHover",
+        L"Background@Pressed:=$ElementTileBGPressed",
         L"BorderThickness=$ElementBorderThickness",
+        L"BorderBrush@Normal:=$ElementBorderBrush",
         L"BorderBrush@PointerOver:=$ElementBorderBrush",
         L"BorderBrush@Pressed:=$ElementBorderBrush",
         L"CornerRadius=$ElementCornerRadius"}},
     ThemeTargetStyles{L"Button > Grid@CommonStates > Border#BackgroundBorder", {
+        L"Background@Normal:=$ElementTileBG",
+        L"Background@PointerOver:=$ElementTileBGHover",
+        L"Background@Pressed:=$ElementTileBGPressed",
         L"BorderThickness=$ElementBorderThickness",
+        L"BorderBrush@Normal:=$ElementBorderBrush",
         L"BorderBrush@PointerOver:=$ElementBorderBrush",
         L"BorderBrush@Pressed:=$ElementBorderBrush",
         L"BackgroundSizing=InnerBorderEdge",
@@ -5175,7 +5185,11 @@ const Theme g_themeLiquidGlass = {{
         L"BackgroundSizing=InnerBorderEdge",
         L"CornerRadius=$ElementCornerRadius"}},
     ThemeTargetStyles{L"ListViewItem > Grid@CommonStates > Border#BorderBackground", {
+        L"Background@Normal:=$ElementTileBG",
+        L"Background@PointerOver:=$ElementTileBGHover",
+        L"Background@Pressed:=$ElementTileBGPressed",
         L"BorderThickness=$ElementBorderThickness",
+        L"BorderBrush@Normal:=$ElementBorderBrush",
         L"BorderBrush@PointerOver:=$ElementBorderBrush",
         L"BorderBrush@Pressed:=$ElementBorderBrush",
         L"BackgroundSizing=InnerBorderEdge",
@@ -5227,7 +5241,11 @@ const Theme g_themeLiquidGlass = {{
         L"BackgroundSizing=InnerBorderEdge",
         L"CornerRadius=$ElementCornerRadius"}},
     ThemeTargetStyles{L"StartDocked.AppListViewItem > Grid@CommonStates > Border#BackgroundBorder", {
+        L"Background@Normal:=$ElementTileBG",
+        L"Background@PointerOver:=$ElementTileBGHover",
+        L"Background@Pressed:=$ElementTileBGPressed",
         L"BorderThickness=$BorderThickness",
+        L"BorderBrush@Normal:=$BorderBrush",
         L"BorderBrush@PointerOver:=$BorderBrush",
         L"BorderBrush@Pressed:=$BorderBrush",
         L"BackgroundSizing=InnerBorderEdge",
@@ -5286,16 +5304,19 @@ const Theme g_themeLiquidGlass = {{
         L"RenderTransform@Pressed:=<ScaleTransform ScaleX=\"0.8\" ScaleY=\"0.8\" />",
         L"RenderTransformOrigin=0.5,0.5"}},
 }, {
-    L"BorderThickness=0.3,1,0.3,0.3",
+    L"BorderThickness=1.2",
     L"ElementBorderThickness=0.3,0.3,0.3,1",
-    L"CornerRadius=12",
-    L"ElementCornerRadius=8",
-    L"Background=<WindhawkBlur BlurAmount=\"15\" TintColor=\"{ThemeResource SystemAltLowColor}\" TintOpacity=\"0.2\" />",
+    L"CornerRadius=18",
+    L"ElementCornerRadius=10",
+    L"Background=<WindhawkBlur BlurAmount=\"35\" TintColor=\"{ThemeResource SystemAltLowColor}\" TintOpacity=\"0.15\" TintSaturation=\"1.8\"/>",
     L"ElementBackground=<WindhawkBlur BlurAmount=\"15\" TintColor=\"{ThemeResource SystemAltLowColor}\" TintOpacity=\"0.4\" />",
-    L"ElementBackground2 = <WindhawkBlur BlurAmount=\"15\" TintColor=\"{ThemeResource SystemAltLowColor}\" TintOpacity=\"0.2\"  />",
-    L"AccentBackground=<WindhawkBlur BlurAmount=\"15\" TintColor=\"{ThemeResource SystemAccentColorLight1}\" TintOpacity=\"0.2\"  />",
-    L"BorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#50808080\" Offset=\"0.0\" /><GradientStop Color=\"#50404040\" Offset=\"0.25\" /><GradientStop Color=\"#50808080\" Offset=\"1\" /></LinearGradientBrush>\"",
-    L"ElementBorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#50808080\" Offset=\"1\" /><GradientStop Color=\"#50606060\" Offset=\"0.15\" /></LinearGradientBrush>",
+    L"ElementBackground2=<WindhawkBlur BlurAmount=\"15\" TintColor=\"{ThemeResource SystemAltLowColor}\" TintOpacity=\"0.2\" />",
+    L"AccentBackground=<WindhawkBlur BlurAmount=\"15\" TintColor=\"{ThemeResource SystemAccentColorLight1}\" TintOpacity=\"0.2\" />",
+    L"BorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"1,1\"><GradientStop Color=\"#40FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#1500FFFF\" Offset=\"0.3\" /><GradientStop Color=\"#15FF00FF\" Offset=\"0.7\" /><GradientStop Color=\"#35FFFFFF\" Offset=\"1.0\" /></LinearGradientBrush>",
+    L"ElementBorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#25FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#10FF00FF\" Offset=\"0.5\" /><GradientStop Color=\"#20FFFFFF\" Offset=\"1.0\" /></LinearGradientBrush>",
+    L"ElementTileBG=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.12\" />",
+    L"ElementTileBGHover=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.26\" />",
+    L"ElementTileBGPressed=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.38\" />",
 }, {}, {
     ThemeTargetStyles{L"*", {
         L"transition: background-color 0.083s ease-in-out !important"}},

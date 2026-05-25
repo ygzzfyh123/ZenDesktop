@@ -5063,9 +5063,15 @@ const Theme g_themeLiquidGlass = {{
         L"Background:=$Background",
         L"CornerRadius=$CornerRadius"}},
     ThemeTargetStyles{L"Taskbar.TaskListButtonPanel#ExperienceToggleButtonRootPanel > Border#BackgroundElement", {
+        L"Background@Normal:=$ElementTileBG",
+        L"Background@PointerOver:=$ElementTileBGHover",
+        L"Background@Pressed:=$ElementTileBGPressed",
         L"CornerRadius=$CornerRadius",
         L"BorderThickness=$ElementBorderThickness"}},
     ThemeTargetStyles{L"Taskbar.TaskListButton#TaskListButton", {
+        L"Background@Normal:=$ElementTileBG",
+        L"Background@PointerOver:=$ElementTileBGHover",
+        L"Background@Pressed:=$ElementTileBGPressed",
         L"CornerRadius=$ElementCornerRadius",
         L"BorderThickness=$ElementBorderThickness"}},
     ThemeTargetStyles{L"Border#SnapBarBorder", {
@@ -5162,16 +5168,19 @@ const Theme g_themeLiquidGlass = {{
     ThemeTargetStyles{L"Grid#AugmentedEntryPointContentGrid", {
         L"HorizontalAlignment=Left"}},
 }, {
-    L"Background=<WindhawkBlur BlurAmount=\"15\" TintColor=\"{ThemeResource SystemAltLowColor}\" TintOpacity=\"0.2\" />",
+    L"Background=<WindhawkBlur BlurAmount=\"35\" TintColor=\"{ThemeResource SystemAltLowColor}\" TintOpacity=\"0.15\" TintSaturation=\"1.8\"/>",
     L"ElementBackground=<WindhawkBlur BlurAmount=\"20\" TintColor=\"{ThemeResource SystemAltLowColor}\" TintOpacity=\"0.4\" />",
     L"ElementBackground2=<WindhawkBlur BlurAmount=\"20\" TintColor=\"{ThemeResource SystemAltLowColor}\" TintOpacity=\"0.2\" />",
     L"AccentBackground=<WindhawkBlur BlurAmount=\"15\" TintColor=\"{ThemeResource SystemAccentColorLight1}\" TintOpacity=\"0.2\" />",
-    L"BorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#50808080\" Offset=\"0.0\" /><GradientStop Color=\"#50404040\" Offset=\"0.25\" /><GradientStop Color=\"#50808080\" Offset=\"1\" /></LinearGradientBrush>",
-    L"ElementBorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#50808080\" Offset=\"1\" /><GradientStop Color=\"#50606060\" Offset=\"0.15\" /></LinearGradientBrush>",
-    L"BorderThickness=0.3,1,0.3,0.3",
+    L"BorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"1,1\"><GradientStop Color=\"#40FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#1500FFFF\" Offset=\"0.3\" /><GradientStop Color=\"#15FF00FF\" Offset=\"0.7\" /><GradientStop Color=\"#35FFFFFF\" Offset=\"1.0\" /></LinearGradientBrush>",
+    L"ElementBorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#25FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#10FF00FF\" Offset=\"0.5\" /><GradientStop Color=\"#20FFFFFF\" Offset=\"1.0\" /></LinearGradientBrush>",
+    L"BorderThickness=1.2",
     L"ElementBorderThickness=0.3,0.3,0.3,1",
-    L"CornerRadius=12",
-    L"ElementCornerRadius=8",
+    L"CornerRadius=18",
+    L"ElementCornerRadius=10",
+    L"ElementTileBG=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.12\" />",
+    L"ElementTileBGHover=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.26\" />",
+    L"ElementTileBGPressed=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.38\" />",
 }};
 
 const Theme g_themeLiquidGlass_variant_Alternate = {{
