@@ -451,8 +451,16 @@ from the **TranslucentTB** project.
   $options:
     - default: "主题默认 (Theme Default)"
     - white: "强制白色 (Force White)"
-    - dark: "强制深灰 (Force Dark)"
+    - dark: "强制深黑 (Force Dark)"
     - system: "跟随系统 (System-aware)"
+    - red: "🔴 红色 (Red)"
+    - green: "🟢 绿色 (Green)"
+    - blue: "🔵 蓝色 (Blue)"
+    - yellow: "🟡 黄色 (Yellow)"
+    - orange: "🟠 橙色 (Orange)"
+    - purple: "🟣 紫色 (Purple)"
+    - pink: "🌸 粉色 (Pink)"
+    - cyan: "💠 青色 (Cyan)"
 - disableNewStartMenuLayout: ""
   $name: "📐 开始菜单布局 (Layout)"
   $description: >-
@@ -13601,47 +13609,6 @@ void ProcessAllStylesFromSettings() {
 
     Wh_FreeStringSetting(bgColorMode);
 
-    PCWSTR textColorMode = Wh_GetStringSetting(L"textColorMode");
-    if (textColorMode && *textColorMode) {
-        std::wstring newFgBrush;
-        if (wcscmp(textColorMode, L"white") == 0) {
-            newFgBrush = L"White";
-        } else if (wcscmp(textColorMode, L"dark") == 0) {
-            newFgBrush = L"#CC000000";
-        } else if (wcscmp(textColorMode, L"system") == 0) {
-            newFgBrush = L"{ThemeResource SystemControlForegroundBaseHighBrush}";
-        }
-
-        if (!newFgBrush.empty()) {
-            // Override ALL theme foreground variables so textColorMode works
-            // universally regardless of which theme is active.
-            static const std::wstring kFgVarNames[] = {
-                L"CommonFgBrush",        // TintedGlass, Windows10X, LayerMicaUI, etc.
-                L"Apple_ForegroundBrush", // Apple Liquid Glass
-            };
-            for (const auto& varName : kFgVarNames) {
-                bool found = false;
-                for (auto& sc : styleConstants) {
-                    if (sc.first == varName) {
-                        sc.second = newFgBrush;
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    StyleConstant newSc{varName, newFgBrush};
-                    auto insertIndex = std::lower_bound(
-                        styleConstants.begin(), styleConstants.end(), newSc,
-                        [](const StyleConstant& a, const StyleConstant& b) {
-                            return a.first.size() > b.first.size();
-                        });
-                    styleConstants.insert(insertIndex, std::move(newSc));
-                }
-            }
-        }
-    }
-    Wh_FreeStringSetting(textColorMode);
-
     if (theme) {
         for (const auto& themeTargetStyle : theme->targetStyles) {
             try {
@@ -13660,6 +13627,43 @@ void ProcessAllStylesFromSettings() {
             }
         }
     }
+
+    PCWSTR textColorMode = Wh_GetStringSetting(L"textColorMode");
+    if (textColorMode && *textColorMode && wcscmp(textColorMode, L"default") != 0) {
+        std::wstring newFgBrush;
+        if (wcscmp(textColorMode, L"white") == 0) {
+            newFgBrush = L"White";
+        } else if (wcscmp(textColorMode, L"dark") == 0) {
+            newFgBrush = L"Black";
+        } else if (wcscmp(textColorMode, L"system") == 0) {
+            newFgBrush = L"{ThemeResource SystemControlForegroundBaseHighBrush}";
+        } else if (wcscmp(textColorMode, L"red") == 0) {
+            newFgBrush = L"#FFFF3333";
+        } else if (wcscmp(textColorMode, L"green") == 0) {
+            newFgBrush = L"#FF33FF33";
+        } else if (wcscmp(textColorMode, L"blue") == 0) {
+            newFgBrush = L"#FF3399FF";
+        } else if (wcscmp(textColorMode, L"yellow") == 0) {
+            newFgBrush = L"#FFFFCC00";
+        } else if (wcscmp(textColorMode, L"orange") == 0) {
+            newFgBrush = L"#FFFF8800";
+        } else if (wcscmp(textColorMode, L"purple") == 0) {
+            newFgBrush = L"#FFCC66FF";
+        } else if (wcscmp(textColorMode, L"pink") == 0) {
+            newFgBrush = L"#FFFF66B2";
+        } else if (wcscmp(textColorMode, L"cyan") == 0) {
+            newFgBrush = L"#FF33FFFF";
+        }
+
+        if (!newFgBrush.empty()) {
+            std::vector<std::wstring> fgStyles = {L"Foreground=" + newFgBrush};
+            AddElementCustomizationRules(L"TextBlock", fgStyles);
+            AddElementCustomizationRules(L"FontIcon", fgStyles);
+            AddElementCustomizationRules(L"PathIcon", fgStyles);
+            AddElementCustomizationRules(L"ContentPresenter", fgStyles);
+        }
+    }
+    Wh_FreeStringSetting(textColorMode);
 
     if (isCustomTheme) {
         try {

@@ -511,8 +511,16 @@ from the **TranslucentTB** project.
   $options:
     - default: "主题默认 (Theme Default)"
     - white: "强制白色 (Force White)"
-    - dark: "强制深灰 (Force Dark)"
+    - dark: "强制深黑 (Force Dark)"
     - system: "跟随系统 (System-aware)"
+    - red: "🔴 红色 (Red)"
+    - green: "🟢 绿色 (Green)"
+    - blue: "🔵 蓝色 (Blue)"
+    - yellow: "🟡 黄色 (Yellow)"
+    - orange: "🟠 橙色 (Orange)"
+    - purple: "🟣 紫色 (Purple)"
+    - pink: "🌸 粉色 (Pink)"
+    - cyan: "💠 青色 (Cyan)"
 - styleConstants: [""]
   $name: "⚙️ Style constants (高级)"
   $description: >-
@@ -12181,9 +12189,25 @@ void ProcessAllStylesFromSettings() {
         if (wcscmp(textColorMode, L"white") == 0) {
             newFgBrush = L"White";
         } else if (wcscmp(textColorMode, L"dark") == 0) {
-            newFgBrush = L"#CC000000";
+            newFgBrush = L"Black";
         } else if (wcscmp(textColorMode, L"system") == 0) {
             newFgBrush = L"{ThemeResource SystemControlForegroundBaseHighBrush}";
+        } else if (wcscmp(textColorMode, L"red") == 0) {
+            newFgBrush = L"#FFFF3333";
+        } else if (wcscmp(textColorMode, L"green") == 0) {
+            newFgBrush = L"#FF33FF33";
+        } else if (wcscmp(textColorMode, L"blue") == 0) {
+            newFgBrush = L"#FF3399FF";
+        } else if (wcscmp(textColorMode, L"yellow") == 0) {
+            newFgBrush = L"#FFFFCC00";
+        } else if (wcscmp(textColorMode, L"orange") == 0) {
+            newFgBrush = L"#FFFF8800";
+        } else if (wcscmp(textColorMode, L"purple") == 0) {
+            newFgBrush = L"#FFCC66FF";
+        } else if (wcscmp(textColorMode, L"pink") == 0) {
+            newFgBrush = L"#FFFF66B2";
+        } else if (wcscmp(textColorMode, L"cyan") == 0) {
+            newFgBrush = L"#FF33FFFF";
         }
 
         if (!newFgBrush.empty()) {
