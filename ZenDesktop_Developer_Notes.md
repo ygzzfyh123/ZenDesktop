@@ -1,0 +1,92 @@
+# ZenDesktop - 开发者备忘录与技术沉淀
+
+这份文档记录了 ZenDesktop Mod 的架构解析、各个核心文件的作用，以及在开发过程中特别是针对 Windows API 及 Windhawk 环境踩过的坑和技术解决方案。
+
+## 1. 核心文件解析
+
+当前目录下的文件构成了 ZenDesktop 美化套件的核心：
+
+### Windhawk Mods (核心注入代码)
+*   **`local@zen-desktop-toggle-icons.wh.cpp`**
+    *   **作用**：实现桌面双击隐藏/显示图标；以及基于系统级全局输入检测的自动隐藏与恢复功能（Issue #2）。
+    *   **技术栈**：Subclass `SHELLDLL_DefView` 与 `SysListView32`，通过 `GetLastInputInfo()` 追踪系统级活动，发送 `0x7402` (WM_COMMAND) 进行切换，`g_autoHiddenAt` 区分手动/自动隐藏。
+    *   **当前版本**：v3.1.0
+*   **`local@zen-startmenu-acrylic.wh.cpp`**
+    *   **作用**：开始菜单纯透明及高级亚克力渲染 Mod。
+    *   **技术栈**：注入 `StartMenuExperienceHost.exe`，劫持系统绘制 API 并应用 DWM (Desktop Window Manager) 背景特效，移除默认背景刷。
+*   **`local@zen-taskbar-acrylic.wh.cpp`**
+    *   **作用**：任务栏透明及自定义视觉样式 Mod。
+    *   **技术栈**：注入 `explorer.exe` 的任务栏组件，覆盖 `TrayNotifyWnd`、`ReBarWindow32` 的默认背景绘制，实现亚克力/模糊效果。
+*   **`local@zen-notificationcenter-acrylic.wh.cpp`**
+    *   **作用**：通知中心透明及样式注入。
+    *   **技术栈**：注入通知中心进程，使其背景可以透明，去除不必要的边框及底纹。
+*   **`local@zen-fileexplorer-transparent.wh.cpp`**
+    *   **作用**：文件管理器全局亚克力与透明支持。
+    *   **技术栈**：针对不同版本的 Windows 11 文件管理器（如 XAML 和旧版 Win32）应用不同的背景渗透策略。
+*   **`local@translucent-windows.wh.cpp`**
+    *   **作用**：全局应用透明窗口渲染 Mod，配合其他组件使用。
+
+### 部署与工具脚本
+*   **`deploy.bat`**
+    *   **作用**：**一键部署脚本**。它是用户的入口，负责检查管理员权限，将 Mod 源码复制到 Windhawk 的 `Data\\Scripts` 目录，并通过注册表 (`HKLM\\SOFTWARE\\Windhawk\\Engine\\Mods`) 自动将 Mod 状态设置为 `Disabled=0`，最后唤起 Windhawk 并重启资源管理器。
+*   **`ZenDesktopCustomizer.py`**
+    *   **作用**：提供一个可视化的 UI 工具（基于 Python 构建），允许用户快速微调各组件的参数（如透明度、模糊强度），而无需直接修改 C++ 源码。
+*   **`restart_explorer.bat`**
+    *   **作用**：用于安全平滑地重启 Windows 资源管理器（先结束进程，再重新启动）。
+*   **`create_nc_mod.py`** / **`overwrite_nc_mod.py`** / **`patch_date_and_line.py`**
+    *   **作用**：开发辅助构建脚本，主要用于自动化替换 C++ 源码中的特定变量、修复时间戳和快速打补丁更新代码逻辑。
+
+---
+
+## 2. 技术踩坑与经验总结
+
+在开发和完善 `zen-desktop-toggle-icons` 及部署脚本的过程中，我们总结了以下至关重要的经验教训：
+
+### 2.1 UI 线程与定时器 (Timer) 的安全限制
+*   **问题场景**：在桌面图标的悬停和自动淡出功能中，我们需要使用 `SetTimer` 定时检查鼠标位置。最初在 Windhawk 的初始化回调（Helper 线程）中直接调用了 `SetTimer`，导致 UI 的消息循环被阻塞，甚至引发资源管理器卡死且定时器不生效。
+*   **经验沉淀**：**永远不要在非 UI 线程中为 UI 窗口创建定时器或处理核心界面消息。** `SetTimer` 必须在目标窗口所属的线程中被调用。
+*   **解决方案**：采用消息投递模式。我们定义了自定义消息 `WM_REFRESH_TIMER` (`WM_USER + 5001`)，在 Windhawk 初始化时使用 `PostMessage` 将指令发给桌面视图窗口，当窗口在其自身的 UI 线程中处理该消息时，再去安全地执行 `SetTimer`。
+
+### 2.2 同步与异步消息的死锁陷阱
+*   **问题场景**：为了切换桌面图标的显示/隐藏状态，需要向系统发送 `WM_COMMAND, 0x7402` 消息。如果使用同步函数 `SendMessageW`，有时系统会因为内部锁的问题导致 `explorer.exe` 发生死锁冻结。
+*   **经验沉淀**：跨进程或针对系统保留底层视图（如 `SHELLDLL_DefView`）发送状态变更指令时，存在很高的死锁风险。
+*   **解决方案**：将 `SendMessageW` 全部替换为异步的 **`PostMessageW`**。将指令丢入消息队列后立即返回，由 UI 线程自行排队安全消费，完美避开了相互等待引发的死锁问题。
+
+### 2.3 健壮的窗口查找算法
+*   **问题场景**：早期的代码通过 `FindWindow(L"Progman", ...)` 来寻找桌面底层窗口。但遇到安装了 Wallpaper Engine 或其他桌面美化软件的环境时，父子窗口的层级关系会被重构（如被下放到 `WorkerW` 下），导致 `FindWindow` 失效，Mod 在一些环境下不生效。
+*   **经验沉淀**：不能依赖硬编码的层级结构。
+*   **解决方案**：改用 `EnumWindows` 全局遍历。只要目标窗口属于 `explorer.exe` 进程，且拥有类名为 `SHELLDLL_DefView` 的子窗口，我们就认定其为合法的桌面视图。这种动态遍历的方法极大地提高了在复杂桌面环境下的兼容性。
+
+### 2.4 批处理与自动化注册表部署
+*   **问题场景**：希望用户实现"一键启用"所有 Mod。但 Windhawk 的脚本生效往往需要用户手动打开 UI 点击启用。
+*   **经验沉淀**：在缺乏 GUI 交互的自动化部署中，通过配置系统底层设置是最佳出路。在批处理中写脚本，**永远不要急于添加 `>nul 2>&1`屏蔽输出**，这会掩盖掉很多诸如权限被拒绝的关键错误。
+*   **解决方案**：`deploy.bat` 中不仅复制源码，还通过 `reg add "HKLM\\SOFTWARE\\Windhawk\\Engine\\Mods\\zen-desktop-toggle-icons" /v Disabled /t REG_DWORD /d 0 /f` 等命令强制写入配置。这样实现了"覆盖源码即激活"的无缝对接。
+
+### 2.5 纯底层模拟双击 (Double Click) 逻辑
+*   **问题场景**：我们要实现"桌面空白处双击"。系统的 ListView 控件本身拥有 `CS_DBLCLKS` 样式可以直接捕获 `WM_LBUTTONDBLCLK`，但在其父级 `SHELLDLL_DefView` 进行 Subclass 时，由于父窗口没这个样式，它是收不到原生双击消息的。
+*   **经验沉淀**：必须手动接管消息拦截。
+*   **解决方案**：手动监听每次 `WM_LBUTTONDOWN` 鼠标左键按下消息。记录当前的时间戳 (`GetTickCount()`) 和坐标点。当第二次按下时，调用系统的 `GetDoubleClickTime()` 判断时间差是否合规，并且利用 `GetSystemMetrics(SM_CXDOUBLECLK)` 判断两次点击的物理距离误差，借此来从逻辑上模拟并判断一次有效的"双击"。
+
+### 2.6 自动隐藏活动检测的正确范围（v3.1.0 经验）
+*   **问题场景**：v2.9.0 中的自动隐藏功能在实际使用中完全失效。根因是活动追踪只依赖 `g_lastDesktopActivity`——一个仅在鼠标进入 `SHELLDLL_DefView` 或 `SysListView32` 时才更新的变量。用户在浏览器、任务栏等其他窗口操作时，`g_lastDesktopActivity` 不更新，倒计时照常走，导致图标在用户**明明在活跃使用电脑**时被错误隐藏。
+*   **经验沉淀**：**"桌面活动"≠"系统活动"。** 自动隐藏的语义应该是用户整体空闲，而不仅仅是不碰桌面。
+*   **解决方案**：用 **`GetLastInputInfo()`** 替换 `g_lastDesktopActivity`。该 API 直接返回系统级最后一次输入（鼠标/键盘）的 tick，无论鼠标在哪个窗口，只要用户在操作就不会触发隐藏。
+
+### 2.7 手动隐藏 vs. 自动隐藏的语义区分（v3.1.0 经验）
+*   **问题场景**：用户双击桌面空白处**故意**隐藏图标后，鼠标稍微移动一下，图标马上又出现了，完全违背操作意图。根因是旧版本对"图标为何被隐藏"毫无记录，恢复逻辑一律触发。
+*   **经验沉淀**：Toggle 操作有两种语义——"我想清空桌面专注工作"（手动）和"系统因为我没动才隐藏的"（自动）。恢复逻辑必须区分这两种场景。
+*   **解决方案**：引入全局变量 **`g_autoHiddenAt`**（DWORD tick）。
+    *   自动隐藏时：`g_autoHiddenAt = GetTickCount()`，标记本次为自动行为。
+    *   任何手动切换（双击）时：`g_autoHiddenAt = 0`，清除标记。
+    *   恢复逻辑检查：只有 `g_autoHiddenAt != 0` 时才执行自动恢复，对手动隐藏完全无感。
+    *   所有切换逻辑统一收口到 **`TryToggleIcons(hwnd, isAutoHide)`** 辅助函数，避免分散在多处造成状态不一致。
+
+### 2.8 鼠标恢复的范围与时效性（v3.1.0 经验）
+*   **问题场景**：v2.9.0 仅在 `SHELLDLL_DefView` 的 `WM_MOUSEMOVE` 中尝试恢复图标，而 `SHELLDLL_DefView` 在图标可见时收不到鼠标消息（此时 `SysListView32` 是命中目标），图标隐藏后才能收到。这导致"鼠标移到其他窗口再移回桌面"这种路径完全无法触发恢复。
+*   **解决方案**：双路并行恢复策略：
+    1. **即时路径**：`SHELLDLL_DefView` 的 `WM_MOUSEMOVE` / `WM_LBUTTONDOWN` → 鼠标进入桌面区域立即恢复（零延迟）。
+    2. **定时轮询路径**：在 500ms 的 `WM_TIMER` 回调中，用 `GetLastInputInfo()` 检测是否有发生在 `g_autoHiddenAt` 之后的系统输入，有则恢复。覆盖鼠标在**其他窗口**移动这种情形，最大延迟 ≤ 500ms。
+
+---
+*此文档由开发者手动维护，AI 辅助整理，旨在帮助开发者和后续维护者快速理解本项目的技术架构与踩坑细节。*
+*最后更新：v3.1.0（2026-05-29）*
