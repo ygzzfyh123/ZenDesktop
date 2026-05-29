@@ -6,25 +6,23 @@
 
 当前目录下的文件构成了 ZenDesktop 美化套件的核心：
 
-### Windhawk Mods (核心注入代码)
-*   **`local@zen-desktop-toggle-icons.wh.cpp`**
-    *   **作用**：实现桌面双击隐藏/显示图标；以及基于系统级全局输入检测的自动隐藏与恢复功能（Issue #2）。
-    *   **技术栈**：Subclass `SHELLDLL_DefView` 与 `SysListView32`，通过 `GetLastInputInfo()` 追踪系统级活动，发送 `0x7402` (WM_COMMAND) 进行切换，`g_autoHiddenAt` 区分手动/自动隐藏。
-    *   **当前版本**：v3.1.0
-*   **`local@zen-startmenu-acrylic.wh.cpp`**
-    *   **作用**：开始菜单纯透明及高级亚克力渲染 Mod。
-    *   **技术栈**：注入 `StartMenuExperienceHost.exe`，劫持系统绘制 API 并应用 DWM (Desktop Window Manager) 背景特效，移除默认背景刷。
+### Windhawk Mods (Core Injection Code)
 *   **`local@zen-taskbar-acrylic.wh.cpp`**
-    *   **作用**：任务栏透明及自定义视觉样式 Mod。
-    *   **技术栈**：注入 `explorer.exe` 的任务栏组件，覆盖 `TrayNotifyWnd`、`ReBarWindow32` 的默认背景绘制，实现亚克力/模糊效果。
+    *   **Role**: Taskbar transparency and custom visual styling mod.
+    *   **Tech**: Injected into `explorer.exe` taskbar component. Overrides `TrayNotifyWnd` / `ReBarWindow32` default background rendering to apply acrylic/blur effects.
+    *   **Current version**: v2.7.0
 *   **`local@zen-notificationcenter-acrylic.wh.cpp`**
-    *   **作用**：通知中心透明及样式注入。
-    *   **技术栈**：注入通知中心进程，使其背景可以透明，去除不必要的边框及底纹。
-*   **`local@zen-fileexplorer-transparent.wh.cpp`**
-    *   **作用**：文件管理器全局亚克力与透明支持。
-    *   **技术栈**：针对不同版本的 Windows 11 文件管理器（如 XAML 和旧版 Win32）应用不同的背景渗透策略。
-*   **`local@translucent-windows.wh.cpp`**
-    *   **作用**：全局应用透明窗口渲染 Mod，配合其他组件使用。
+    *   **Role**: Notification Center transparency and style injection mod.
+    *   **Tech**: Injected into the notification center process (`ShellExperienceHost.exe` / `ShellHost.exe`) to make backgrounds transparent and remove unwanted borders/shadows.
+    *   **Current version**: v2.8.0
+*   **`local@zen-startmenu-acrylic.wh.cpp`**
+    *   **Role**: Start Menu pure transparency and advanced acrylic rendering mod.
+    *   **Tech**: Injected into `StartMenuExperienceHost.exe`. Hooks system draw APIs and applies DWM (Desktop Window Manager) background effects, removing the default background brush.
+    *   **Current version**: v2.7.0
+*   **`local@zen-desktop-toggle-icons.wh.cpp`**
+    *   **Role**: Double-click to hide/show desktop icons; system-level global input detection for auto-hide and auto-restore (Issue #2).
+    *   **Tech**: Subclasses `SHELLDLL_DefView` and `SysListView32`. Tracks system-wide activity via `GetLastInputInfo()`, sends `0x7402` (WM_COMMAND) to toggle. `g_autoHiddenAt` distinguishes manual vs. auto-hide.
+    *   **Current version**: v3.1.0
 
 ### 部署与工具脚本
 *   **`deploy.bat`**

@@ -2,7 +2,7 @@
 // @id              zen-taskbar-acrylic
 // @name            ZenDesktop: Taskbar Acrylic Styler
 // @description     Premium acrylic/frosted glass taskbar themes with custom blur presets. Based on m417z's Taskbar Styler.
-// @version         2.7.0
+// @version         2.8.0
 // @author          Lanbo & m417z
 // @github          https://github.com/Liset999
 // @include         explorer.exe
@@ -450,6 +450,38 @@ from the **TranslucentTB** project.
   - TaskbarXII: "任务栏 XII (Taskbar XII)"
   - Windows7: "Windows 7 风格 (Windows 7)"
   - WinXP: "Windows XP 风格 (Windows XP)"
+  - LiquidGlass: "液态琉璃 (LiquidGlass)"
+  - LiquidGlass_variant_Alternate: "液态琉璃 - 备选 (LiquidGlass Alt)"
+  - AppleLiquidGlass_variant_Alternate: "液态玻璃 - 备选 (Liquid Glass Alt)"
+  - AppleLiquidGlassClassic_variant_Alternate: "液态经典 - 备选 (Liquid Classic Alt)"
+  - Borderless: "无边框 (Borderless)"
+  - DockLike: "Dock 风格 (DockLike)"
+  - Squircle: "圆角方块 (Squircle)"
+  - Bubbles: "气泡风格 (Bubbles)"
+  - Fluid: "流体风格 (Fluid)"
+  - Surface: "Surface 风格 (Surface)"
+  - Aeris: "Aeris 风格 (Aeris)"
+  - Plasma: "Plasma 风格 (Plasma)"
+  - WinVista: "Windows Vista 风格 (WinVista)"
+  - WinXP_variant_Zune: "Zune 风格 (WinXP Zune)"
+  - SunValley: "Sun Valley 风格 (SunValley)"
+  - 21996Taskbar: "Sun Valley 经典 (SunValley Legacy)"
+  - CleanSlate: "干净简约 (CleanSlate)"
+  - Lucent: "透明流光 (Lucent)"
+  - Lucent_variant_Light: "透明流光 - 浅色 (Lucent Light)"
+  - RosePine: "玫瑰松 (RosePine)"
+  - xdark: "极暗 (xdark)"
+  - WindowGlass_variant_Split: "窗口玻璃 - 分离 (WindowGlass Split)"
+  - WindowGlass_variant_FullLength: "窗口玻璃 - 全长 (WindowGlass Full)"
+  - Oversimplified&Accentuated: "极简强调 (Oversimplified)"
+  - Luminosity_variant_Dock: "光度 - Dock (Luminosity Dock)"
+  - Luminosity_variant_Classic: "光度 - 经典 (Luminosity Classic)"
+  - Luminosity_variant_Compact: "光度 - 紧凑 (Luminosity Compact)"
+  - LayerMicaUI: "层叠云母 (LayerMicaUI)"
+  - BottomDensy: "底部紧凑 (BottomDensy)"
+  - BottomDensy_variant_NoInd: "底部紧凑 - 无指示 (BottomDensy NoInd)"
+  - TaskbarToStatusbar: "状态栏化 (TaskbarToStatusbar)"
+  - UltraWideFriendly: "超宽屏适配 (UltraWideFriendly)"
 - bgColorMode: "Default"
   $name: "🎨 背景颜色 (Color Preset)"
   $description: >-

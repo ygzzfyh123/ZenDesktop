@@ -387,9 +387,35 @@ from the **TranslucentTB** project.
   - TranslucentStartMenu_Acrylic: "亚克力 (Acrylic)"
   - TranslucentStartMenu_FrostedWhite: "白毛玻璃 (White Frosted Glass)"
   - TranslucentStartMenu_DarkGlass: "黑毛玻璃 (Dark Frosted Glass)"
+  - SimplyTransparent: "纯粹透明 (Simply Transparent)"
   - AppleLiquidGlass: "液态玻璃 (Liquid Glass)"
   - AppleLiquidGlassClassic: "液态玻璃 - 经典 (Liquid Glass Classic)"
-  - SimplyTransparent: "纯粹透明 (Simply Transparent)"
+  - LiquidGlass: "液态玻璃 - 原版 (Liquid Glass Original)"
+  - NoRecommendedSection: "无推荐区 (No Recommended Section)"
+  - SideBySide: "并排布局 (Side By Side)"
+  - SideBySide2: "并排布局 2 (Side By Side 2)"
+  - SideBySideMinimal: "并排极简 (Side By Side Minimal)"
+  - Down Aero: "下沉毛玻璃 (Down Aero)"
+  - Windows10: "Windows 10 经典 (Windows 10)"
+  - Windows10_variant_Minimal: "Windows 10 极简 (Windows 10 Minimal)"
+  - Windows10X: "Windows 10X"
+  - Windows11_Metro10: "Win11 Metro10"
+  - Windows11_Metro10Minimal: "Win11 Metro10 极简 (Metro10 Minimal)"
+  - Fluent2Inspired: "Fluent 2 风格 (Fluent 2 Inspired)"
+  - RosePine: "玫瑰松 (Rosé Pine)"
+  - Everblush: "常青红 (Everblush)"
+  - SunValley: "Sun Valley"
+  - 21996: "泄露版 21996 (Build 21996)"
+  - UniMenu: "统一菜单 (UniMenu)"
+  - LegacyFluent: "经典 Fluent (Legacy Fluent)"
+  - OnlySearch: "仅搜索 (Only Search)"
+  - WindowGlass: "窗口玻璃 (Window Glass)"
+  - Fluid: "流体 (Fluid)"
+  - Oversimplified&Accentuated: "极简强调 (Oversimplified & Accentuated)"
+  - TintedGlass: "着色玻璃 (Tinted Glass)"
+  - LayerMicaUI: "层叠云母 (Layer Mica UI)"
+  - Borderless: "无边框 (Borderless)"
+  - Command Center: "指挥中心 (Command Center)"
 - bgColorMode: "Default"
   $name: "🎨 背景颜色 (Color Preset)"
   $description: >-
@@ -5366,9 +5392,11 @@ const Theme g_themeAppleLiquidGlass = {{
         L"Background:=$Apple_Background",
         L"BorderThickness=0",
         L"CornerRadius=$Apple_InnerCornerRadius"}},
-    // -- Kill the gray frosted square that causes corner artifacts --
+    // -- Make LayerBorder transparent but keep it visible to fill corner gaps --
     ThemeTargetStyles{L"Border#LayerBorder", {
-        L"Visibility=Collapsed"}},
+        L"Background=Transparent",
+        L"BorderThickness=0",
+        L"CornerRadius=0"}},
     // -- Pinned tile backgrounds --
     ThemeTargetStyles{L"Border#ContentBorder@CommonStates > Grid > Border#BackgroundBorder", {
         L"Background@Normal:=$Apple_ElementTileBG",
@@ -5635,9 +5663,11 @@ const Theme g_themeAppleLiquidGlass_variant_Classic = {{
         L"Background:=$Apple_Background",
         L"BorderThickness=0",
         L"CornerRadius=$Apple_InnerCornerRadius"}},
-    // -- Kill the gray frosted square that causes corner artifacts --
+    // -- Make LayerBorder transparent but keep it visible to fill corner gaps --
     ThemeTargetStyles{L"Border#LayerBorder", {
-        L"Visibility=Collapsed"}},
+        L"Background=Transparent",
+        L"BorderThickness=0",
+        L"CornerRadius=0"}},
     // -- Pinned tile backgrounds --
     ThemeTargetStyles{L"Border#ContentBorder@CommonStates > Grid > Border#BackgroundBorder", {
         L"Background@Normal:=$Apple_ElementTileBG",

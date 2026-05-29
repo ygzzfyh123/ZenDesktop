@@ -14,7 +14,7 @@
 /*
 # ZenDesktop: Double Click to Hide Icons
 
-Have you ever wanted a clean, clutter-free desktop but found it annoying to right-click -> View -> Show desktop icons every time?
+Have you ever wanted a clean, clutter-free desktop but found it annoying to right-click -> View -> Show desktop icons every time? 
 
 **ZenDesktop** brings the ultimate native solution to Windows. It allows you to **double-click empty space on your desktop** to instantly hide or show your icons, and optionally **automatically hide icons** after a configurable period of system inactivity.
 
@@ -61,17 +61,8 @@ using CreateWindowExW_t = decltype(&CreateWindowExW);
 CreateWindowExW_t Real_CreateWindowExW;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Global state
+// Global settings
 // ─────────────────────────────────────────────────────────────────────────────
-
-// Debounce guard: prevents toggle from firing more than once per 500 ms.
-static DWORD g_lastToggleTime = 0;
-
-// When icons were auto-hidden (non-zero). Zero means icons were manually hidden
-// or are currently visible. This is the key to distinguishing auto-hide from
-// manual toggle so we never auto-restore a deliberate hide.
-static DWORD g_autoHiddenAt = 0;
-
 struct Settings {
     bool enableAutoHide;
     int  autoHideDelay;       // seconds, clamped 3–60
@@ -83,42 +74,19 @@ struct Settings {
 // ─────────────────────────────────────────────────────────────────────────────
 static void LoadSettings()
 {
-    g_settings.enableAutoHide     = Wh_GetIntSetting(L"enableAutoHide") != 0;
-    g_settings.autoHideDelay      = Wh_GetIntSetting(L"autoHideDelay");
+    g_settings.enableAutoHide      = Wh_GetIntSetting(L"enableAutoHide") != 0;
+    g_settings.autoHideDelay       = Wh_GetIntSetting(L"autoHideDelay");
     if (g_settings.autoHideDelay < 3)  g_settings.autoHideDelay = 3;
     if (g_settings.autoHideDelay > 60) g_settings.autoHideDelay = 60;
     g_settings.showIconsOnAnyInput = Wh_GetIntSetting(L"showIconsOnAnyInput") != 0;
+
+    Wh_Log(L"[ZenDesktop] Settings loaded: enableAutoHide=%d, autoHideDelay=%d, showIconsOnAnyInput=%d",
+           (int)g_settings.enableAutoHide, g_settings.autoHideDelay, (int)g_settings.showIconsOnAnyInput);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Desktop icon visibility helper
-// ─────────────────────────────────────────────────────────────────────────────
-static bool IsDesktopIconsVisible()
-{
-    HWND hwndShell = NULL;
-
-    HWND hwndProgman = FindWindowW(L"Progman", L"Program Manager");
-    if (hwndProgman)
-        hwndShell = FindWindowExW(hwndProgman, NULL, L"SHELLDLL_DefView", NULL);
-
-    if (!hwndShell) {
-        HWND hwndWorkerW = NULL;
-        while ((hwndWorkerW = FindWindowExW(NULL, hwndWorkerW, L"WorkerW", NULL)) != NULL) {
-            hwndShell = FindWindowExW(hwndWorkerW, NULL, L"SHELLDLL_DefView", NULL);
-            if (hwndShell) break;
-        }
-    }
-
-    if (hwndShell) {
-        HWND hwndListView = FindWindowExW(hwndShell, NULL, L"SysListView32", NULL);
-        if (hwndListView)
-            return IsWindowVisible(hwndListView) != 0;
-    }
-    return true; // assume visible if window hierarchy not found
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Timer management
+// Timer management — post WM_REFRESH_TIMER to SHELLDLL_DefView so the timer
+// is always created/destroyed on the window-owning thread.
 // ─────────────────────────────────────────────────────────────────────────────
 static void UpdateTimerState(HWND hwndShell)
 {
@@ -141,33 +109,52 @@ static void UpdateAllTimers()
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Safe toggle helper — posts WM_COMMAND 0x7402 with debounce
-// Returns true if toggle was dispatched.
+// Icon visibility helpers
+//
+// ManualToggleIcons  — user double-clicked: toggle and clear auto-hide marker.
+// AutoHideIcons      — timer fired: hide only if visible, set auto-hide marker.
+// AutoRestoreIcons   — input detected: restore only auto-hidden icons.
+//
+// "ZenAutoHiddenAt" window property (stores GetTickCount) distinguishes
+// auto-hidden from manually-hidden state.
 // ─────────────────────────────────────────────────────────────────────────────
-static bool TryToggleIcons(HWND hwndShellView, bool isAutoHide)
+static void ManualToggleIcons(HWND hwndShellView)
 {
-    DWORD now = GetTickCount();
-    if (now - g_lastToggleTime <= 500)
-        return false;
-
-    g_lastToggleTime = now;
-
-    if (isAutoHide) {
-        // Auto-hide: record the moment so we can auto-restore later.
-        g_autoHiddenAt = now;
-    } else {
-        // Manual toggle: clear auto-hide stamp so restore logic is suppressed.
-        g_autoHiddenAt = 0;
-    }
-
     HWND hwndListView = FindWindowExW(hwndShellView, NULL, L"SysListView32", NULL);
     if (hwndListView) {
         bool isVisible = IsWindowVisible(hwndListView) != 0;
         ShowWindow(hwndListView, isVisible ? SW_HIDE : SW_SHOW);
+        Wh_Log(L"[ZenDesktop] ManualToggle: %s", isVisible ? L"HIDE" : L"SHOW");
     } else {
+        // Fallback: use the native shell toggle if ListView handle is missing
         PostMessageW(hwndShellView, WM_COMMAND, 0x7402, 0);
+        Wh_Log(L"[ZenDesktop] ManualToggle: fallback WM_COMMAND 0x7402");
     }
-    return true;
+    // Clear auto-hide marker — this was a deliberate user action
+    RemovePropW(hwndShellView, L"ZenAutoHiddenAt");
+}
+
+static void AutoHideIcons(HWND hwndShellView)
+{
+    HWND hwndListView = FindWindowExW(hwndShellView, NULL, L"SysListView32", NULL);
+    if (hwndListView && IsWindowVisible(hwndListView)) {
+        ShowWindow(hwndListView, SW_HIDE);
+        DWORD now = GetTickCount();
+        // Avoid storing 0 (which means "not set"); extremely unlikely but be safe
+        if (now == 0) now = 1;
+        SetPropW(hwndShellView, L"ZenAutoHiddenAt", (HANDLE)(ULONG_PTR)now);
+        Wh_Log(L"[ZenDesktop] AutoHide: icons hidden at tick=%u", now);
+    }
+}
+
+static void AutoRestoreIcons(HWND hwndShellView)
+{
+    HWND hwndListView = FindWindowExW(hwndShellView, NULL, L"SysListView32", NULL);
+    if (hwndListView && !IsWindowVisible(hwndListView)) {
+        ShowWindow(hwndListView, SW_SHOW);
+        Wh_Log(L"[ZenDesktop] AutoRestore: icons restored");
+    }
+    RemovePropW(hwndShellView, L"ZenAutoHiddenAt");
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -181,12 +168,15 @@ BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM)
     if (wcscmp(className, L"WorkerW") == 0 || wcscmp(className, L"Progman") == 0) {
         HWND hwndShell = FindWindowExW(hWnd, NULL, L"SHELLDLL_DefView", NULL);
         if (hwndShell) {
+            Wh_Log(L"[ZenDesktop] Subclassing ShellView=%p (parent=%s)", hwndShell, className);
             WindhawkUtils::SetWindowSubclassFromAnyThread(hwndShell, DesktopShellViewSubclassProc, 0);
             UpdateTimerState(hwndShell);
 
             HWND hwndListView = FindWindowExW(hwndShell, NULL, L"SysListView32", NULL);
-            if (hwndListView)
+            if (hwndListView) {
+                Wh_Log(L"[ZenDesktop] Subclassing ListView=%p", hwndListView);
                 WindhawkUtils::SetWindowSubclassFromAnyThread(hwndListView, DesktopListViewSubclassProc, 0);
+            }
         }
     }
     return TRUE;
@@ -199,9 +189,19 @@ static void UnsubclassWindows()
     auto Cleanup = [](HWND hwndShell) {
         if (!hwndShell) return;
         KillTimer(hwndShell, TIMER_AUTOHIDE);
-        WindhawkUtils::RemoveWindowSubclassFromAnyThread(hwndShell, DesktopShellViewSubclassProc);
+        RemovePropW(hwndShell, L"ZenTimerInit");
+        RemovePropW(hwndShell, L"ZenAutoHiddenAt");
+        
+        // Ensure SysListView32 is shown when mod is disabled/unloaded
         HWND lv = FindWindowExW(hwndShell, NULL, L"SysListView32", NULL);
-        if (lv) WindhawkUtils::RemoveWindowSubclassFromAnyThread(lv, DesktopListViewSubclassProc);
+        if (lv) {
+            if (!IsWindowVisible(lv)) {
+                ShowWindow(lv, SW_SHOW);
+                Wh_Log(L"[ZenDesktop] Cleanup: restored SysListView32 visibility");
+            }
+            WindhawkUtils::RemoveWindowSubclassFromAnyThread(lv, DesktopListViewSubclassProc);
+        }
+        WindhawkUtils::RemoveWindowSubclassFromAnyThread(hwndShell, DesktopShellViewSubclassProc);
     };
 
     HWND hwndProgman = FindWindowW(L"Progman", L"Program Manager");
@@ -216,6 +216,8 @@ static void UnsubclassWindows()
 // ─────────────────────────────────────────────────────────────────────────────
 // CreateWindowExW hook — dynamically subclass new desktop windows
 // ─────────────────────────────────────────────────────────────────────────────
+// Note: If you experience Explorer flashing on Windows 11 Build 26100 (24H2),
+// please disable the mod in the Windhawk UI.
 HWND WINAPI Hook_CreateWindowExW(
     DWORD dwExStyle, LPCWSTR lpClassName, LPCWSTR lpWindowName,
     DWORD dwStyle, int X, int Y, int nWidth, int nHeight,
@@ -226,6 +228,7 @@ HWND WINAPI Hook_CreateWindowExW(
 
     if (hWnd && lpClassName && !IS_INTRESOURCE(lpClassName)) {
         if (wcscmp(lpClassName, L"SHELLDLL_DefView") == 0) {
+            Wh_Log(L"[ZenDesktop] Hook: new SHELLDLL_DefView=%p created", hWnd);
             WindhawkUtils::SetWindowSubclassFromAnyThread(hWnd, DesktopShellViewSubclassProc, 0);
             UpdateTimerState(hWnd);
         }
@@ -235,6 +238,7 @@ HWND WINAPI Hook_CreateWindowExW(
                 GetClassNameW(hWndParent, parentClass, 256) &&
                 wcscmp(parentClass, L"SHELLDLL_DefView") == 0)
             {
+                Wh_Log(L"[ZenDesktop] Hook: new desktop ListView=%p created", hWnd);
                 WindhawkUtils::SetWindowSubclassFromAnyThread(hWnd, DesktopListViewSubclassProc, 0);
             }
         }
@@ -283,7 +287,7 @@ LRESULT CALLBACK DesktopListViewSubclassProc(
                 // Empty space — manual toggle (not auto-hide).
                 HWND hwndParent = GetParent(hWnd);
                 if (hwndParent)
-                    TryToggleIcons(hwndParent, /*isAutoHide=*/false);
+                    ManualToggleIcons(hwndParent);
                 return 0; // suppress default double-click action
             }
         }
@@ -297,75 +301,93 @@ LRESULT CALLBACK DesktopListViewSubclassProc(
 //   Receives events when icons are HIDDEN (ListView hidden → DefView is hit).
 //   Responsibilities:
 //     • Run the 500 ms auto-hide/restore polling timer.
-//     • Immediate restore on mouse-over-desktop (when icons are auto-hidden).
+//     • Immediate restore on mouse move over desktop (when icons are auto-hidden).
+//     • Immediate restore on click on desktop (when icons are auto-hidden).
 //     • Double-click restore (always works, including manually hidden icons).
 // ─────────────────────────────────────────────────────────────────────────────
 LRESULT CALLBACK DesktopShellViewSubclassProc(
     HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, DWORD_PTR)
 {
-    // ── One-time timer bootstrap (runs the first time this proc is called) ────
-    // NOTE: timerInitialized is a static shared across all HWND instances of
-    // this proc. WM_REFRESH_TIMER handles the per-HWND case (multi-monitor).
-    static bool timerInitialized = false;
+    // ── One-time timer bootstrap ─────────────────────────────────────────────
+    // On the very first message after subclassing, set up the polling timer.
+    bool timerInitialized = GetPropW(hWnd, L"ZenTimerInit") != NULL;
     if (!timerInitialized && g_settings.enableAutoHide) {
-        if (SetTimer(hWnd, TIMER_AUTOHIDE, 500, NULL))
-            timerInitialized = true;
+        if (SetTimer(hWnd, TIMER_AUTOHIDE, 500, NULL)) {
+            SetPropW(hWnd, L"ZenTimerInit", (HANDLE)1);
+            Wh_Log(L"[ZenDesktop] Timer bootstrapped for ShellView=%p", hWnd);
+        }
     }
 
     // ── Cross-thread timer refresh (settings change / new window subclassed) ──
     if (uMsg == WM_REFRESH_TIMER) {
         if (g_settings.enableAutoHide) {
-            timerInitialized = (SetTimer(hWnd, TIMER_AUTOHIDE, 500, NULL) != 0);
+            if (SetTimer(hWnd, TIMER_AUTOHIDE, 500, NULL)) {
+                SetPropW(hWnd, L"ZenTimerInit", (HANDLE)1);
+                Wh_Log(L"[ZenDesktop] Timer refreshed (ON) for ShellView=%p", hWnd);
+            }
         } else {
             KillTimer(hWnd, TIMER_AUTOHIDE);
-            timerInitialized = false;
+            RemovePropW(hWnd, L"ZenTimerInit");
+            Wh_Log(L"[ZenDesktop] Timer killed (OFF) for ShellView=%p", hWnd);
         }
         return 0;
-    }
-
-    // ── Immediate desktop-mouse restore (only when auto-hidden) ──────────────
-    // SHELLDLL_DefView receives WM_MOUSEMOVE / WM_LBUTTONDOWN only when the
-    // SysListView32 is hidden (icons hidden), making this the right place.
-    if (g_autoHiddenAt != 0 && g_settings.enableAutoHide) {
-        if (uMsg == WM_MOUSEMOVE || uMsg == WM_LBUTTONDOWN || uMsg == WM_RBUTTONDOWN) {
-            // Restore immediately — don't wait for the next timer tick.
-            if (!IsDesktopIconsVisible())
-                TryToggleIcons(hWnd, /*isAutoHide=*/false);
-            // g_autoHiddenAt is cleared inside TryToggleIcons (isAutoHide=false).
-        }
     }
 
     // ── Auto-hide / auto-restore timer tick (every 500 ms) ───────────────────
     if (uMsg == WM_TIMER && wParam == TIMER_AUTOHIDE) {
-        if (g_settings.enableAutoHide) {
-            // Use GetLastInputInfo() for SYSTEM-WIDE inactivity — not just
-            // desktop activity. This prevents hiding icons while the user is
-            // actively using other applications.
-            LASTINPUTINFO lii = { sizeof(LASTINPUTINFO) };
-            GetLastInputInfo(&lii);
-            DWORD now = GetTickCount();
+        if (!g_settings.enableAutoHide) return 0;
 
-            if (IsDesktopIconsVisible()) {
-                // ── Auto-hide check ──────────────────────────────────────────
-                DWORD idleMs = now - lii.dwTime;
-                if (idleMs >= (DWORD)g_settings.autoHideDelay * 1000)
-                    TryToggleIcons(hWnd, /*isAutoHide=*/true);
+        HWND hwndListView = FindWindowExW(hWnd, NULL, L"SysListView32", NULL);
+        if (!hwndListView) return 0;
+
+        bool isVis = IsWindowVisible(hwndListView) != 0;
+
+        LASTINPUTINFO lii = { sizeof(LASTINPUTINFO) };
+        if (!GetLastInputInfo(&lii)) return 0;
+        DWORD now = GetTickCount();
+
+        DWORD autoHiddenAt = (DWORD)(ULONG_PTR)GetPropW(hWnd, L"ZenAutoHiddenAt");
+
+        if (isVis) {
+            // ── Icons visible → check if system has been idle long enough ────
+            DWORD idleMs = now - lii.dwTime;
+            if (idleMs >= (DWORD)g_settings.autoHideDelay * 1000) {
+                Wh_Log(L"[ZenDesktop] Timer: idle %ums >= %us threshold → AutoHide",
+                       idleMs, g_settings.autoHideDelay);
+                AutoHideIcons(hWnd);
             }
-            else if (g_autoHiddenAt != 0 && g_settings.showIconsOnAnyInput) {
-                // ── Auto-restore check (timer-based, catches non-desktop input) ─
-                // If any input occurred AFTER we auto-hid the icons → restore.
-                // lii.dwTime is the tick of the last system input.
-                // g_autoHiddenAt is the tick when we sent the hide command.
-                // We add a 200 ms grace period so the hide animation finishes
-                // before we consider restoring.
-                if ((lii.dwTime - g_autoHiddenAt) > 200 &&
-                    lii.dwTime > g_autoHiddenAt)
-                {
-                    TryToggleIcons(hWnd, /*isAutoHide=*/false);
+        }
+        else if (autoHiddenAt != 0 && g_settings.showIconsOnAnyInput) {
+            // ── Icons auto-hidden → check if user provided new input ─────────
+            // lii.dwTime = tick of last real user input
+            // autoHiddenAt = tick when we auto-hid
+            // Require: last input happened AFTER we hid, with ≥500ms gap to
+            // avoid restoring from lingering input timestamps.
+            if (lii.dwTime > autoHiddenAt && (lii.dwTime - autoHiddenAt) > 500) {
+                Wh_Log(L"[ZenDesktop] Timer: new input detected (lastInput=%u, hidAt=%u) → AutoRestore",
+                       lii.dwTime, autoHiddenAt);
+                AutoRestoreIcons(hWnd);
+            }
+        }
+
+        return 0;
+    }
+
+    // ── Immediate mouse/click restore (only when auto-hidden + restore-on-input enabled) ──
+    // Mouse clicks and moves directly on the desktop are immediate indications of activity.
+    // To prevent the synthetic WM_MOUSEMOVE generated during ShowWindow(SW_HIDE) from 
+    // immediately triggering a restore, we enforce a 100ms time guard after auto-hide.
+    {
+        DWORD autoHiddenAt = (DWORD)(ULONG_PTR)GetPropW(hWnd, L"ZenAutoHiddenAt");
+        if (autoHiddenAt != 0 && g_settings.showIconsOnAnyInput) {
+            if (uMsg == WM_MOUSEMOVE || uMsg == WM_LBUTTONDOWN || uMsg == WM_RBUTTONDOWN) {
+                DWORD now = GetTickCount();
+                if (now - autoHiddenAt > 100) {
+                    Wh_Log(L"[ZenDesktop] Immediate mouse/click restore on DefView (uMsg=%u)", uMsg);
+                    AutoRestoreIcons(hWnd);
                 }
             }
         }
-        return 0;
     }
 
     // ── Double-click restore (works for both auto-hidden AND manually hidden) ──
@@ -392,7 +414,7 @@ LRESULT CALLBACK DesktopShellViewSubclassProc(
         }
 
         if (isDblClick) {
-            TryToggleIcons(hWnd, /*isAutoHide=*/false);
+            ManualToggleIcons(hWnd);
             return 0;
         }
     }
@@ -405,25 +427,31 @@ LRESULT CALLBACK DesktopShellViewSubclassProc(
 // ─────────────────────────────────────────────────────────────────────────────
 bool Wh_ModInit()
 {
+    Wh_Log(L"[ZenDesktop] === Wh_ModInit v3.1.0 ===");
     LoadSettings();
 
     if (!Wh_SetFunctionHook(
             (void*)CreateWindowExW,
             (void*)Hook_CreateWindowExW,
-            (void**)&Real_CreateWindowExW))
+            (void**)&Real_CreateWindowExW)) {
+        Wh_Log(L"[ZenDesktop] FAILED to hook CreateWindowExW");
         return false;
+    }
 
     SubclassExistingWindows();
+    Wh_Log(L"[ZenDesktop] Init complete");
     return true;
 }
 
 void Wh_ModUninit()
 {
+    Wh_Log(L"[ZenDesktop] === Wh_ModUninit ===");
     UnsubclassWindows();
 }
 
 void Wh_ModSettingsChanged()
 {
+    Wh_Log(L"[ZenDesktop] === Settings changed ===");
     LoadSettings();
     UpdateAllTimers();
 }

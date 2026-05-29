@@ -16,14 +16,13 @@ TARGET_DIR = r"D:\Repository\windhawk-mods\mods"
 TARGET_REPO = r"D:\Repository\windhawk-mods"
 
 # Mapping of local files to community repository file names
-# (Usually we strip the 'local@' prefix for the official repo)
+# (The 'local@' prefix is stripped for the official community repo)
+# Only the 4 core ZenDesktop mods are synced to windhawk-mods.
 SYNC_MAP = {
-    "local@zen-desktop-toggle-icons.wh.cpp": "zen-desktop-toggle-icons.wh.cpp",
-    "local@zen-startmenu-acrylic.wh.cpp": "zen-startmenu-acrylic.wh.cpp",
-    "local@zen-taskbar-acrylic.wh.cpp": "zen-taskbar-acrylic.wh.cpp",
-    "local@zen-notificationcenter-acrylic.wh.cpp": "zen-notificationcenter-acrylic.wh.cpp",
-    "local@zen-fileexplorer-transparent.wh.cpp": "zen-fileexplorer-transparent.wh.cpp",
-    "local@translucent-windows.wh.cpp": "translucent-windows.wh.cpp"
+    "local@zen-taskbar-acrylic.wh.cpp":             "zen-taskbar-acrylic.wh.cpp",
+    "local@zen-notificationcenter-acrylic.wh.cpp":  "zen-notificationcenter-acrylic.wh.cpp",
+    "local@zen-startmenu-acrylic.wh.cpp":           "zen-startmenu-acrylic.wh.cpp",
+    "local@zen-desktop-toggle-icons.wh.cpp":        "zen-desktop-toggle-icons.wh.cpp",
 }
 
 def run_git_command(command, cwd):
