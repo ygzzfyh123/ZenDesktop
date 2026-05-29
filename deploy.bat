@@ -172,9 +172,9 @@ echo [6/7] Registering mods in registry...
 if %WINDHAWK_IS_PORTABLE%==1 (
     echo       [OK] Portable mode - skipping registry registration
 ) else (
-    :: ----------------------------------------------------------
-    ::  Mod 1: Taskbar Acrylic Styler
-    :: ----------------------------------------------------------
+    rem  ----------------------------------------------------------
+    rem   Mod 1: Taskbar Acrylic Styler
+    rem  ----------------------------------------------------------
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-taskbar-acrylic" /v "Disabled"         /t REG_DWORD /d 0           /f >nul 2>&1
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-taskbar-acrylic" /v "LoggingEnabled"   /t REG_DWORD /d 0           /f >nul 2>&1
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-taskbar-acrylic" /v "Include"          /t REG_SZ    /d "explorer.exe" /f >nul 2>&1
@@ -184,9 +184,9 @@ if %WINDHAWK_IS_PORTABLE%==1 (
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-taskbar-acrylic" /v "LibraryFileName"  /t REG_SZ    /d ""           /f >nul 2>&1
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-taskbar-acrylic\Settings" /v "theme"   /t REG_SZ    /d "TranslucentTaskbar" /f >nul 2>&1
 
-    :: ----------------------------------------------------------
-    ::  Mod 2: Notification Center Acrylic Styler
-    :: ----------------------------------------------------------
+    rem  ----------------------------------------------------------
+    rem   Mod 2: Notification Center Acrylic Styler
+    rem  ----------------------------------------------------------
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-notificationcenter-acrylic" /v "Disabled"        /t REG_DWORD /d 0                                              /f >nul 2>&1
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-notificationcenter-acrylic" /v "LoggingEnabled"  /t REG_DWORD /d 0                                              /f >nul 2>&1
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-notificationcenter-acrylic" /v "Include"         /t REG_SZ    /d "ShellExperienceHost.exe|ShellHost.exe"        /f >nul 2>&1
@@ -196,9 +196,9 @@ if %WINDHAWK_IS_PORTABLE%==1 (
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-notificationcenter-acrylic" /v "LibraryFileName" /t REG_SZ    /d ""                                             /f >nul 2>&1
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-notificationcenter-acrylic\Settings" /v "theme"  /t REG_SZ    /d "TranslucentShell"                             /f >nul 2>&1
 
-    :: ----------------------------------------------------------
-    ::  Mod 3: Start Menu Acrylic Styler
-    :: ----------------------------------------------------------
+    rem  ----------------------------------------------------------
+    rem   Mod 3: Start Menu Acrylic Styler
+    rem  ----------------------------------------------------------
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-startmenu-acrylic" /v "Disabled"        /t REG_DWORD /d 0                                                                   /f >nul 2>&1
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-startmenu-acrylic" /v "LoggingEnabled"  /t REG_DWORD /d 0                                                                   /f >nul 2>&1
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-startmenu-acrylic" /v "Include"         /t REG_SZ    /d "StartMenuExperienceHost.exe|SearchHost.exe|SearchApp.exe"          /f >nul 2>&1
@@ -208,17 +208,17 @@ if %WINDHAWK_IS_PORTABLE%==1 (
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-startmenu-acrylic" /v "LibraryFileName" /t REG_SZ    /d ""                                                                  /f >nul 2>&1
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-startmenu-acrylic\Settings" /v "theme"  /t REG_SZ    /d "TranslucentStartMenu"                                              /f >nul 2>&1
 
-    :: ----------------------------------------------------------
-    ::  Mod 4: Double-Click to Hide Desktop Icons
-    ::  NOTE: Disabled by default to prevent explorer flashing
-    ::        on Windows 11 Build 26100 (24H2). Enable manually
-    ::        inside the Windhawk UI after confirming stability.
-    :: ----------------------------------------------------------
+    rem  ----------------------------------------------------------
+    rem   Mod 4: Double-Click to Hide Desktop Icons
+    rem   NOTE: Enabled by default. If you experience explorer flashing
+    rem         on Windows 11 Build 26100 (24H2), disable manually.
+    rem  ----------------------------------------------------------
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-desktop-toggle-icons" /v "Disabled"        /t REG_DWORD /d 0           /f >nul 2>&1
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-desktop-toggle-icons" /v "LoggingEnabled"  /t REG_DWORD /d 0           /f >nul 2>&1
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-desktop-toggle-icons" /v "Include"         /t REG_SZ    /d "explorer.exe" /f >nul 2>&1
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-desktop-toggle-icons" /v "Exclude"         /t REG_SZ    /d ""           /f >nul 2>&1
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-desktop-toggle-icons" /v "Architecture"    /t REG_SZ    /d ""           /f >nul 2>&1
+    reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-desktop-toggle-icons" /v "LibraryFileName" /t REG_SZ    /d ""           /f >nul 2>&1
     reg add "HKLM\SOFTWARE\Windhawk\Engine\Mods\local@zen-desktop-toggle-icons" /v "Version"         /t REG_SZ    /d "3.1.0"      /f >nul 2>&1
 
     echo       [OK] Registry entries created for all 4 mods
