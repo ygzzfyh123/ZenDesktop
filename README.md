@@ -32,9 +32,11 @@ Syncs the Start Menu panel seamlessly with your taskbar theme, rendering native 
 
 ### 3. 🖱️ Double-Click to Toggle Icons (`local@zen-desktop-toggle-icons`)
 A process-native desktop subclassing module. **Double-click empty desktop space to instantly hide/show icons.**
+* **System-Wide Auto-Hide (v3.1.0 Update)**: Automatically hides desktop icons after a configurable period of system-wide inactivity (tracks all keyboard/mouse input, not just desktop interactions).
+* **Smart Auto-Restore**: Icons auto-restore instantly on any user input. Intentionally double-clicked hidden icons are respected and will not auto-restore.
 * Uses native Win32 hit-testing: double-clicking files or folders triggers their default actions normally.
 * Intercepts messages directly inside `explorer.exe` shell views. Zero lag, zero background EXEs.
-* **Note**: Now disabled by default in `deploy.bat` to guarantee 100% stability and prevent the known Explorer flashing/crash bugs on Windows 11 Build 26100 (24H2). You can still choose to manually compile and enable it inside the Windhawk UI if your build is compatible.
+* **Note**: Disabled by default in `deploy.bat` to prevent known Explorer flashing bugs on Windows 11 Build 26100 (24H2). You can manually enable it inside the Windhawk UI.
 
 ---
 
@@ -95,6 +97,10 @@ ZenDesktop/
     * **极致去横线**：彻底消除全宽屏幕任务栏顶部的突兀渐变边框线，只在悬浮 Dock 卡片模式下保留高亮亮边，达成纯净无痕贴底的完美通透感。
     * **恢复原生双行日期**：清空所有对托盘时间与日期的样式劫持，完美还原 Win11 经典的上下双行（时间在上、日期在下）居右排版。
     * **消灭编译报错**：大扫除代码注释里所有导致 GBK 编码下编译失败的非 ASCII 字符（如 `═` 等），彻底铲除 `missing terminating '"'` 错误，实现 100% 顺畅本地秒编译。
+* **v3.1.0 桌面自动隐藏功能升级（2026/05/29）**：
+  * **系统级全局无响应检测**：利用 `GetLastInputInfo()` 监听全系统键盘与鼠标事件。在浏览器、任务栏或其他窗口操作时，不再会错误判定为“闲置”而导致桌面图标突然消失。
+  * **智能自动恢复**：因闲置而自动隐藏的桌面图标，一旦您移动鼠标或敲击键盘（即使不在桌面），图标会立刻自动浮现。
+  * **用户意图保护**：若您通过“双击空白处”主动隐藏了图标，系统将尊重您的选择，绝不会在后续操作中自作主张把它弹出来。
 * **100% 稳定性保障**：默认禁用易引发 Windows 11 24H2 / Build 26100 系统黑屏/闪屏的双击隐藏图标插件，稳定性达工业级，免去后顾之忧。
 
 ### 🛠️ 快速开始

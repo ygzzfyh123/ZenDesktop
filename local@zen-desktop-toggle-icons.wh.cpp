@@ -160,7 +160,13 @@ static bool TryToggleIcons(HWND hwndShellView, bool isAutoHide)
         g_autoHiddenAt = 0;
     }
 
-    PostMessageW(hwndShellView, WM_COMMAND, 0x7402, 0);
+    HWND hwndListView = FindWindowExW(hwndShellView, NULL, L"SysListView32", NULL);
+    if (hwndListView) {
+        bool isVisible = IsWindowVisible(hwndListView) != 0;
+        ShowWindow(hwndListView, isVisible ? SW_HIDE : SW_SHOW);
+    } else {
+        PostMessageW(hwndShellView, WM_COMMAND, 0x7402, 0);
+    }
     return true;
 }
 
