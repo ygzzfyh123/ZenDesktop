@@ -14,20 +14,22 @@ Previously powered by TranslucentTB, this repository has been **completely rewri
 
 ## 🌟 Premium Features
 
-### 1. 🎛️ Taskbar Acrylic Styler (`local@zen-taskbar-acrylic`) [v3.0.0]
+### 1. 🎛️ Taskbar Acrylic Styler (`local@zen-taskbar-acrylic`) [v3.3.0]
 A native Windows 11 Taskbar beautification module offering fine-grained, premium transparency & blur presets:
 * **Clear**: 100% full transparency (only taskbar icons remain).
 * **Acrylic (High / Standard / Low)**: Real-time high-fidelity WinUI 3 acrylic glass effect.
 * **Apple Liquid Glass / Alternate**: Hyper-transparent 3D droplet glass with a subtle chromatic dispersion border (featuring diagonal red→orange→green→blue→purple gradient stops), Fresnel specular edge reflections, and a precise 2px corner radius compensation (perfectly matching floating macOS-like Dock layout).
-* **v3.0.0 Updates**: Swapped out all non-ASCII character markers to prevent locale-specific compiler token collapse (`missing terminating '"' character` errors) and aligned the metadata fully to version `3.0.0`.
+* **v3.3.0 Updates**: Fixed a critical dynamic brush generation bug where malformed XAML (missing escape quotes) caused silent parsing failures, ensuring seamless transparency and blur updates under Custom Glass mode.
 
-### 2. 🔔 Notification Center Acrylic Styler (`local@zen-notificationcenter-acrylic`) [v3.0.0 NEW]
+### 2. 🔔 Notification Center Acrylic Styler (`local@zen-notificationcenter-acrylic`) [v3.3.0 NEW]
 A premium notification and action center acrylic glass styler co-created by **Lanbo** and **m417z**:
 * Brings high-fidelity real-time acrylic and frosted glass effects to the Windows 11 Notification Center, calendar panel, and Quick Settings/System Tray panels.
 * Perfectly synchronized with your desktop theme presets, retaining flawless WinUI shadows and smooth animations.
+* **v3.3.0 Updates**: Corrected XAML escape quotes for dynamic SolidColorBrush and WindhawkBlur structures to prevent quiet styling fallback issues.
 
-### 3. 🚀 Start Menu Acrylic Styler (`local@zen-startmenu-acrylic`) [v3.0.0]
-Syncs the Start Menu panel seamlessly with your taskbar theme, rendering native acrylic blur overlays over both redesigned and classic Start menu layouts, including expanded folders and search dialogs. Features **Apple Liquid Glass** preset with a clear liquid body, diagonal glass light sheen, adapted folder plates, and expanded panels with sub-pixel alignment.
+### 3. 🚀 Start Menu Acrylic Styler (`local@zen-startmenu-acrylic`) [v3.3.0]
+Syncs the Start Menu panel seamlessly with your taskbar theme, rendering native acrylic blur overlays over both redesigned and classic Start menu layouts. Features **Apple Liquid Glass** preset with a clear liquid body and expanded folder plates.
+* **v3.3.0 Premium Updates**: Replaced the simple hide labels toggle with a premium 3-way **Label Visibility** choice (**Show Text**, **Hide Text**, and **Hover to Show**). The hover state dynamically controls the label opacity using WinUI's native Visual State Groups (`CommonStates`), resulting in perfectly smooth transitions without breaking your theme foreground colors or triggering layout shifting.
 
 ### 4. 🖱️ Double-Click to Toggle Icons (`local@zen-desktop-toggle-icons`) [v3.0.0 Reconstructed]
 A process-native desktop subclassing module. **Double-click empty desktop space to instantly hide/show icons.**
@@ -94,8 +96,9 @@ ZenDesktop/
 * **彻底告别乱码**：全面采用标准纯英及 ASCII 标签，完全杜绝 Windows 编码带来的乱码 Bug。
 * **极致性能**：利用进程级注入与 Hook 技术，不占用任何后台常驻进程，0% CPU 开销，近乎 0MB 内存占用。
 * **Apple Liquid Glass (苹果流体玻璃) 主题**：引入超写实拟真玻璃美学！完美的圆角对齐系统（外圆角 20px，内圆角 18px，子元素圆角 10px）搭配五彩斑斓的虹彩边缘与 Fresnel spec 高光，超透且清晰。
-* **v3.0.0 精构化通知中心 (2026/05/29)**：
-  * **深度共创**：携手 Windhawk 官方作者 m417z 深度共创通知中心亚克力插件，完美覆盖 Win11 通知中心、日历及系统控制中心托盘。
+* **v3.3.0 开始菜单文字三阶显示与画刷修复 (2026/05/30)**：
+  - **三阶文字模式**：将原有的简单隐藏开关升级为 **“显示文字”**、**“隐藏文字”**、**“悬浮显示文字”** 三阶下拉选项。悬浮状态下利用 WinUI 原生视觉状态机联动，实现优雅微动画过渡，无任何图标位移与排版抖动，且完美保留主题前景色。
+  - **XAML 动态画刷修复**：彻底修复了任务栏与通知中心插件中因转义引号丢失导致 XAML 解析失败回退的 Bug，完美恢复“自定义玻璃”下的透明度与模糊度无缝调节。
 * **v3.0.0 桌面双击隐藏重构 (2026/05/30)**：
   * **异步管道（PostMessageW）**：彻底打通异步消息管道，绝不阻塞 Win32 主消息循环，彻底避免因消息堆积引起的桌面假死和资源管理器未响应。
   - **全屏程序避让守护**：智能侦测当前是否存在全屏运行的游戏或影音程序。全屏状态下自动挂起动作拦截，防止玩游戏时误触隐藏桌面图标。
