@@ -5331,9 +5331,9 @@ const Theme g_themeAppleLiquidGlass = {{
     ThemeTargetStyles{L"Border#AcrylicOverlay", {
         L"Visibility=Visible",
         L"CornerRadius=20",
-        L"BorderThickness=2.2,2.2,1.0,1.0",
-        L"BorderBrush:=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"1,1\"><GradientStop Color=\"#F0FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#80FFFFFF\" Offset=\"0.06\" /><GradientStop Color=\"#30FFFFFF\" Offset=\"0.18\" /><GradientStop Color=\"#08FFFFFF\" Offset=\"0.35\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\" /><GradientStop Color=\"#08000000\" Offset=\"0.7\" /><GradientStop Color=\"#40000000\" Offset=\"1.0\" /></LinearGradientBrush>\"",
-        L"Background:=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"1,1\"><GradientStop Color=\"#20FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#0CFFFFFF\" Offset=\"0.06\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.15\" /><GradientStop Color=\"#00000000\" Offset=\"0.85\" /><GradientStop Color=\"#06000000\" Offset=\"1.0\" /></LinearGradientBrush>\""}},
+        L"BorderThickness=0",
+        L"BorderBrush:=<SolidColorBrush Color=\"Transparent\" />",
+        L"Background:=<SolidColorBrush Color=\"Transparent\" />"}},
     // -- Main glass body (hyper-transparent + chromatic dispersion border) --
     ThemeTargetStyles{L"Border#AcrylicBorder", {
         L"Background:=$Apple_Background",
@@ -5570,8 +5570,8 @@ const Theme g_themeAppleLiquidGlass = {{
     // ------------------------------------------------------
     // Style constants - v2 refraction upgrade
     // ------------------------------------------------------
-    L"Apple_BorderThickness=2.0",
-    L"Apple_ElementBorderThickness=0.6,0.6,0.6,1.2",
+    L"Apple_BorderThickness=0",
+    L"Apple_ElementBorderThickness=0",
     L"Apple_CornerRadius=20",
     L"Apple_InnerCornerRadius=18",
     L"Apple_ElementCornerRadius=10",
@@ -5581,9 +5581,9 @@ const Theme g_themeAppleLiquidGlass = {{
     L"Apple_ElementBackground2=<WindhawkBlur BlurAmount=\"1\" TintColor=\"#00FFFFFF\" TintOpacity=\"0.0\" TintLuminosityOpacity=\"0.0\" TintSaturation=\"1.0\" />",
     L"Apple_AccentBackground=<WindhawkBlur BlurAmount=\"1\" TintColor=\"{ThemeResource SystemAccentColorLight1}\" TintOpacity=\"0.02\" TintLuminosityOpacity=\"0.0\" TintSaturation=\"1.0\" />",
     // Chromatic dispersion border - DOUBLED alpha for visibility
-    L"Apple_BorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#FFFFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#C0FFFFFF\" Offset=\"0.02\" /><GradientStop Color=\"#60FFFFFF\" Offset=\"0.06\" /><GradientStop Color=\"#20FFFFFF\" Offset=\"0.15\" /><GradientStop Color=\"#08FFFFFF\" Offset=\"0.3\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\" /><GradientStop Color=\"#06000000\" Offset=\"0.8\" /><GradientStop Color=\"#20000000\" Offset=\"1.0\" /></LinearGradientBrush>",
+    L"Apple_BorderBrush=<SolidColorBrush Color=\"Transparent\" />",
     // Element border - stronger top highlight + bottom shadow
-    L"Apple_ElementBorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#70FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#15FFFFFF\" Offset=\"0.3\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\" /><GradientStop Color=\"#10000000\" Offset=\"1.0\" /></LinearGradientBrush>",
+    L"Apple_ElementBorderBrush=<SolidColorBrush Color=\"Transparent\" />",
     // Tile backgrounds - slightly more visible for readability
     L"Apple_ElementTileBG=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.05\" />",
     L"Apple_ElementTileBGHover=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.12\" />",
@@ -5600,9 +5600,9 @@ const Theme g_themeAppleLiquidGlass_variant_Classic = {{
     ThemeTargetStyles{L"Border#AcrylicOverlay", {
         L"Visibility=Visible",
         L"CornerRadius=20",
-        L"BorderThickness=2.2,2.2,1.0,1.0",
-        L"BorderBrush:=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"1,1\"><GradientStop Color=\"#F0FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#80FFFFFF\" Offset=\"0.06\" /><GradientStop Color=\"#30FFFFFF\" Offset=\"0.18\" /><GradientStop Color=\"#08FFFFFF\" Offset=\"0.35\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\" /><GradientStop Color=\"#08000000\" Offset=\"0.7\" /><GradientStop Color=\"#40000000\" Offset=\"1.0\" /></LinearGradientBrush>\"",
-        L"Background:=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"1,1\"><GradientStop Color=\"#20FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#0CFFFFFF\" Offset=\"0.06\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.15\" /><GradientStop Color=\"#00000000\" Offset=\"0.85\" /><GradientStop Color=\"#06000000\" Offset=\"1.0\" /></LinearGradientBrush>\""}},
+        L"BorderThickness=0",
+        L"BorderBrush:=<SolidColorBrush Color=\"Transparent\" />",
+        L"Background:=<SolidColorBrush Color=\"Transparent\" />"}},
     // -- Main glass body (hyper-transparent + chromatic dispersion border) --
     ThemeTargetStyles{L"Border#AcrylicBorder", {
         L"Background:=$Apple_Background",
@@ -5839,8 +5839,8 @@ const Theme g_themeAppleLiquidGlass_variant_Classic = {{
     // ------------------------------------------------------
     // Style constants - v2.7.0 style (Classic Refraction)
     // ------------------------------------------------------
-    L"Apple_BorderThickness=1.8",
-    L"Apple_ElementBorderThickness=0.3,0.3,0.3,0.8",
+    L"Apple_BorderThickness=0",
+    L"Apple_ElementBorderThickness=0",
     L"Apple_CornerRadius=20",
     L"Apple_InnerCornerRadius=18",
     L"Apple_ElementCornerRadius=10",
@@ -5850,9 +5850,9 @@ const Theme g_themeAppleLiquidGlass_variant_Classic = {{
     L"Apple_ElementBackground2=<WindhawkBlur BlurAmount=\"1\" TintColor=\"#00FFFFFF\" TintOpacity=\"0.0\" TintLuminosityOpacity=\"0.0\" TintSaturation=\"1.0\" />",
     L"Apple_AccentBackground=<WindhawkBlur BlurAmount=\"1\" TintColor=\"{ThemeResource SystemAccentColorLight1}\" TintOpacity=\"0.02\" TintLuminosityOpacity=\"0.0\" TintSaturation=\"1.0\" />",
     // Chromatic dispersion border
-    L"Apple_BorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#F0FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#A0FFFFFF\" Offset=\"0.03\" /><GradientStop Color=\"#50FFFFFF\" Offset=\"0.08\" /><GradientStop Color=\"#18FFFFFF\" Offset=\"0.18\" /><GradientStop Color=\"#06FFFFFF\" Offset=\"0.35\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\" /><GradientStop Color=\"#05000000\" Offset=\"0.8\" /><GradientStop Color=\"#18000000\" Offset=\"1.0\" /></LinearGradientBrush>",
+    L"Apple_BorderBrush=<SolidColorBrush Color=\"Transparent\" />",
     // Element border
-    L"Apple_ElementBorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#50FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#10FFFFFF\" Offset=\"0.3\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\" /><GradientStop Color=\"#08000000\" Offset=\"1.0\" /></LinearGradientBrush>",
+    L"Apple_ElementBorderBrush=<SolidColorBrush Color=\"Transparent\" />",
     // Tile backgrounds
     L"Apple_ElementTileBG=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.02\" />",
     L"Apple_ElementTileBGHover=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.08\" />",

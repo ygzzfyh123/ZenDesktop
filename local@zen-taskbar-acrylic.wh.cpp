@@ -5534,8 +5534,8 @@ const Theme g_themeAppleLiquidGlass = {{
     ThemeTargetStyles{L"Grid#AugmentedEntryPointContentGrid", {
         L"HorizontalAlignment=Left"}},
 }, {
-    L"Apple_BorderThickness=2.0",
-    L"Apple_ElementBorderThickness=0.3,0.3,0.3,0.8",
+    L"Apple_BorderThickness=0",
+    L"Apple_ElementBorderThickness=0",
     L"Apple_CornerRadius=20",
     L"Apple_ElementCornerRadius=10",
     L"Apple_Background=<WindhawkBlur BlurAmount=\"2\" TintColor=\"#00FFFFFF\" TintOpacity=\"0.0\" TintLuminosityOpacity=\"0.0\" TintSaturation=\"1.0\" FallbackColor=\"#04FFFFFF\" />",
@@ -5543,8 +5543,8 @@ const Theme g_themeAppleLiquidGlass = {{
     L"Apple_ElementBackground2=<WindhawkBlur BlurAmount=\"1\" TintColor=\"#00FFFFFF\" TintOpacity=\"0.0\" TintLuminosityOpacity=\"0.0\" TintSaturation=\"1.0\" />",
     L"Apple_AccentBackground=<WindhawkBlur BlurAmount=\"1\" TintColor=\"{ThemeResource SystemAccentColorLight1}\" TintOpacity=\"0.02\" TintLuminosityOpacity=\"0.0\" TintSaturation=\"1.0\" />",
     // 3D Refraction Prismatic Convex Mercury Border (v2.8.0 signature)
-    L"Apple_BorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#FFFFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#C0FFFFFF\" Offset=\"0.02\" /><GradientStop Color=\"#60FFFFFF\" Offset=\"0.06\" /><GradientStop Color=\"#20FFFFFF\" Offset=\"0.15\" /><GradientStop Color=\"#08FFFFFF\" Offset=\"0.3\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\" /><GradientStop Color=\"#06000000\" Offset=\"0.8\" /><GradientStop Color=\"#20000000\" Offset=\"1.0\" /></LinearGradientBrush>",
-    L"Apple_ElementBorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#70FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#15FFFFFF\" Offset=\"0.3\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\" /><GradientStop Color=\"#10000000\" Offset=\"1.0\" /></LinearGradientBrush>",
+    L"Apple_BorderBrush=<SolidColorBrush Color=\"Transparent\" />",
+    L"Apple_ElementBorderBrush=<SolidColorBrush Color=\"Transparent\" />",
     L"Apple_ElementTileBG=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.02\" />",
     L"Apple_ElementTileBGHover=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.08\" />",
     L"Apple_ElementTileBGPressed=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.15\" />",
@@ -5718,8 +5718,8 @@ const Theme g_themeAppleLiquidGlass_variant_Alternate = {{
     ThemeTargetStyles{L"Grid#AugmentedEntryPointContentGrid", {
         L"HorizontalAlignment=Left"}},
 }, {
-    L"Apple_BorderThickness=2.0",
-    L"Apple_ElementBorderThickness=0.3,0.3,0.3,0.8",
+    L"Apple_BorderThickness=0",
+    L"Apple_ElementBorderThickness=0",
     L"Apple_CornerRadius=20",
     L"Apple_ElementCornerRadius=10",
     L"Apple_Background=<WindhawkBlur BlurAmount=\"2\" TintColor=\"#00FFFFFF\" TintOpacity=\"0.0\" TintLuminosityOpacity=\"0.0\" TintSaturation=\"1.0\" FallbackColor=\"#04FFFFFF\" />",
@@ -5727,8 +5727,8 @@ const Theme g_themeAppleLiquidGlass_variant_Alternate = {{
     L"Apple_ElementBackground2=<WindhawkBlur BlurAmount=\"1\" TintColor=\"#00FFFFFF\" TintOpacity=\"0.0\" TintLuminosityOpacity=\"0.0\" TintSaturation=\"1.0\" />",
     L"Apple_AccentBackground=<WindhawkBlur BlurAmount=\"1\" TintColor=\"{ThemeResource SystemAccentColorLight1}\" TintOpacity=\"0.02\" TintLuminosityOpacity=\"0.0\" TintSaturation=\"1.0\" />",
     // 3D Refraction Prismatic Convex Mercury Border (v2.8.0 signature)
-    L"Apple_BorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#FFFFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#C0FFFFFF\" Offset=\"0.02\" /><GradientStop Color=\"#60FFFFFF\" Offset=\"0.06\" /><GradientStop Color=\"#20FFFFFF\" Offset=\"0.15\" /><GradientStop Color=\"#08FFFFFF\" Offset=\"0.3\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\" /><GradientStop Color=\"#06000000\" Offset=\"0.8\" /><GradientStop Color=\"#20000000\" Offset=\"1.0\" /></LinearGradientBrush>",
-    L"Apple_ElementBorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#70FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#15FFFFFF\" Offset=\"0.3\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\" /><GradientStop Color=\"#10000000\" Offset=\"1.0\" /></LinearGradientBrush>",
+    L"Apple_BorderBrush=<SolidColorBrush Color=\"Transparent\" />",
+    L"Apple_ElementBorderBrush=<SolidColorBrush Color=\"Transparent\" />",
     L"Apple_ElementTileBG=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.02\" />",
     L"Apple_ElementTileBGHover=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.08\" />",
     L"Apple_ElementTileBGPressed=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.15\" />",
@@ -5897,8 +5897,8 @@ const Theme g_themeAppleLiquidGlass_variant_Classic = {{
     // ------------------------------------------------------
     // Style constants 鈥?v2.7.0 style (Classic Refraction)
     // ------------------------------------------------------
-    L"Apple_BorderThickness=1.8",
-    L"Apple_ElementBorderThickness=0.3,0.3,0.3,0.8",
+    L"Apple_BorderThickness=0",
+    L"Apple_ElementBorderThickness=0",
     L"Apple_CornerRadius=20",
     L"Apple_ElementCornerRadius=10",
     // Original hyper-transparent glass (low blur=2, no tint, low opacity)
@@ -5907,8 +5907,8 @@ const Theme g_themeAppleLiquidGlass_variant_Classic = {{
     L"Apple_ElementBackground2=<WindhawkBlur BlurAmount=\"1\" TintColor=\"#00FFFFFF\" TintOpacity=\"0.0\" TintLuminosityOpacity=\"0.0\" TintSaturation=\"1.0\" />",
     L"Apple_AccentBackground=<WindhawkBlur BlurAmount=\"1\" TintColor=\"{ThemeResource SystemAccentColorLight1}\" TintOpacity=\"0.02\" TintLuminosityOpacity=\"0.0\" TintSaturation=\"1.0\" />",
     // Taskbar: Convex 3D vertical gradient (top highlight 鈫?bottom shadow)
-    L"Apple_BorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#F0FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#A0FFFFFF\" Offset=\"0.03\" /><GradientStop Color=\"#50FFFFFF\" Offset=\"0.08\" /><GradientStop Color=\"#18FFFFFF\" Offset=\"0.18\" /><GradientStop Color=\"#06FFFFFF\" Offset=\"0.35\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\" /><GradientStop Color=\"#05000000\" Offset=\"0.8\" /><GradientStop Color=\"#18000000\" Offset=\"1.0\" /></LinearGradientBrush>",
-    L"Apple_ElementBorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#50FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#10FFFFFF\" Offset=\"0.3\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\" /><GradientStop Color=\"#08000000\" Offset=\"1.0\" /></LinearGradientBrush>",
+    L"Apple_BorderBrush=<SolidColorBrush Color=\"Transparent\" />",
+    L"Apple_ElementBorderBrush=<SolidColorBrush Color=\"Transparent\" />",
     L"Apple_ElementTileBG=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.02\" />",
     L"Apple_ElementTileBGHover=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.08\" />",
     L"Apple_ElementTileBGPressed=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.15\" />",
@@ -6085,8 +6085,8 @@ const Theme g_themeAppleLiquidGlass_variant_Classic_Alternate = {{
     // ------------------------------------------------------
     // Style constants 鈥?v2.7.0 style (Classic Refraction)
     // ------------------------------------------------------
-    L"Apple_BorderThickness=1.8",
-    L"Apple_ElementBorderThickness=0.3,0.3,0.3,0.8",
+    L"Apple_BorderThickness=0",
+    L"Apple_ElementBorderThickness=0",
     L"Apple_CornerRadius=20",
     L"Apple_ElementCornerRadius=10",
     // Original hyper-transparent glass (low blur=2, no tint, low opacity)
@@ -6095,8 +6095,8 @@ const Theme g_themeAppleLiquidGlass_variant_Classic_Alternate = {{
     L"Apple_ElementBackground2=<WindhawkBlur BlurAmount=\"1\" TintColor=\"#00FFFFFF\" TintOpacity=\"0.0\" TintLuminosityOpacity=\"0.0\" TintSaturation=\"1.0\" />",
     L"Apple_AccentBackground=<WindhawkBlur BlurAmount=\"1\" TintColor=\"{ThemeResource SystemAccentColorLight1}\" TintOpacity=\"0.02\" TintLuminosityOpacity=\"0.0\" TintSaturation=\"1.0\" />",
     // Taskbar: Convex 3D vertical gradient (top highlight 鈫?bottom shadow)
-    L"Apple_BorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#F0FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#A0FFFFFF\" Offset=\"0.03\" /><GradientStop Color=\"#50FFFFFF\" Offset=\"0.08\" /><GradientStop Color=\"#18FFFFFF\" Offset=\"0.18\" /><GradientStop Color=\"#06FFFFFF\" Offset=\"0.35\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\" /><GradientStop Color=\"#05000000\" Offset=\"0.8\" /><GradientStop Color=\"#18000000\" Offset=\"1.0\" /></LinearGradientBrush>",
-    L"Apple_ElementBorderBrush=<LinearGradientBrush StartPoint=\"0,0\" EndPoint=\"0,1\"><GradientStop Color=\"#50FFFFFF\" Offset=\"0.0\" /><GradientStop Color=\"#10FFFFFF\" Offset=\"0.3\" /><GradientStop Color=\"#00FFFFFF\" Offset=\"0.5\" /><GradientStop Color=\"#08000000\" Offset=\"1.0\" /></LinearGradientBrush>",
+    L"Apple_BorderBrush=<SolidColorBrush Color=\"Transparent\" />",
+    L"Apple_ElementBorderBrush=<SolidColorBrush Color=\"Transparent\" />",
     L"Apple_ElementTileBG=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.02\" />",
     L"Apple_ElementTileBGHover=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.08\" />",
     L"Apple_ElementTileBGPressed=<SolidColorBrush Color=\"{ThemeResource SystemChromeMediumColor}\" Opacity=\"0.15\" />",
