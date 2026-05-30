@@ -112,6 +112,13 @@ ZenDesktop/
 3. 打开 Windhawk 软件，进入各本地插件页（Taskbar, Start Menu, Notification Center），点击右上角的 **保存并编译**。
 4. 编译完成后，在设置选项的 **Theme** 下拉菜单中挑选您喜爱的高级透明度与亚克力效果预设！
 
+## 💖 Support / 赞助支持
+
+If you love this project and want to support its active development, you can sponsor me here:
+如果您喜欢这个项目，并希望支持它的持续开发，欢迎赞助支持我：
+
+👉 **[Sponsor on AFDian / 爱发电赞助通道](https://ifdian.net/a/Lanboo)**
+
 ---
 
 ## 📄 License
