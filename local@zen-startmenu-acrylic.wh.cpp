@@ -377,17 +377,13 @@ from the **TranslucentTB** project.
 
 // ==WindhawkModSettings==
 /*
-- theme: "TranslucentStartMenu"
+- theme: "SimplyTransparent"
   $name: "🎭 视觉风格 (Visual Style)"
   $description: >-
     选择开始菜单的整体视觉风格。搭配下方的颜色和模糊度设置使用。
   $options:
   - "": "无 (None)"
-  - TranslucentStartMenu: "透明玻璃 (Transparent Glass)"
-  - TranslucentStartMenu_Acrylic: "亚克力 (Acrylic)"
-  - TranslucentStartMenu_FrostedWhite: "白毛玻璃 (White Frosted Glass)"
-  - TranslucentStartMenu_DarkGlass: "黑毛玻璃 (Dark Frosted Glass)"
-  - SimplyTransparent: "纯粹透明 (Simply Transparent)"
+  - SimplyTransparent: "自定义玻璃 (Custom Glass)"
   - AppleLiquidGlass: "液态玻璃 (Liquid Glass)"
   - AppleLiquidGlassClassic: "液态玻璃 - 经典 (Liquid Glass Classic)"
   - LiquidGlass: "液态玻璃 - 原版 (Liquid Glass Original)"
