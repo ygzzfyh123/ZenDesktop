@@ -12179,16 +12179,16 @@ void ProcessAllStylesFromSettings() {
 
     if (blurVal == 0) {
         if (finalColor.starts_with(L"{ThemeResource")) {
-            customBrush = L"<SolidColorBrush Color=\"" + finalColor + L" Opacity=\"" + opacityStr + L"\" />";
+            customBrush = L"<SolidColorBrush Color=\"" + finalColor + L"\" Opacity=\"" + opacityStr + L"\" />";
         } else {
             std::wstring cleanColor = finalColor;
             if (finalColor.length() == 9 && finalColor[0] == L'#') {
                 cleanColor = L"#" + finalColor.substr(3); // strip alpha from #AARRGGBB to #RRGGBB
             }
-            customBrush = L"<SolidColorBrush Color=\"" + cleanColor + L" Opacity=\"" + opacityStr + L"\" />";
+            customBrush = L"<SolidColorBrush Color=\"" + cleanColor + L"\" Opacity=\"" + opacityStr + L"\" />";
         }
     } else {
-        customBrush = L"<WindhawkBlur BlurAmount=\"" + blurStr + L" TintColor=\"" + finalColor + L" TintOpacity=\"" + opacityStr + L" TintLuminosityOpacity=\"" + lumStr + L"\" />";
+        customBrush = L"<WindhawkBlur BlurAmount=\"" + blurStr + L"\" TintColor=\"" + finalColor + L"\" TintOpacity=\"" + opacityStr + L"\" TintLuminosityOpacity=\"" + lumStr + L"\" />";
     }
 
     if (!customBrush.empty()) {
