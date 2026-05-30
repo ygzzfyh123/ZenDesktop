@@ -13693,8 +13693,40 @@ void ProcessAllStylesFromSettings() {
 
     bool hideLabelsUntilHover = Wh_GetIntSetting(L"hideLabelsUntilHover");
     if (hideLabelsUntilHover) {
-        newFgBrush = L"Transparent";
+        std::vector<std::wstring> hoverOpacityStyles = {
+            L"Opacity@Normal=0",
+            L"Opacity@PointerOver=1",
+            L"Opacity@Pressed=1"
+        };
+        std::vector<std::wstring> targets = {
+            // TextBlock#AppDisplayName (Regular apps / Pinned items)
+            L"StartDocked.AppListViewItem > Grid@CommonStates > * > TextBlock#AppDisplayName",
+            L"GridViewItem > Border#ContentBorder@CommonStates > * > TextBlock#AppDisplayName",
+            L"ListViewItem > Grid#ContentBorder@CommonStates > * > TextBlock#AppDisplayName",
+            L"StartDocked.AllAppsGridListViewItem > Grid@CommonStates > * > TextBlock#AppDisplayName",
+
+            L"StartDocked.AppListViewItem > Grid@CommonStates > * > Windows.UI.Xaml.Controls.TextBlock#AppDisplayName",
+            L"GridViewItem > Border#ContentBorder@CommonStates > * > Windows.UI.Xaml.Controls.TextBlock#AppDisplayName",
+            L"ListViewItem > Grid#ContentBorder@CommonStates > * > Windows.UI.Xaml.Controls.TextBlock#AppDisplayName",
+            L"StartDocked.AllAppsGridListViewItem > Grid@CommonStates > * > Windows.UI.Xaml.Controls.TextBlock#AppDisplayName",
+
+            // TextBlock#DisplayName (Recommended files / suggestions)
+            L"StartDocked.AppListViewItem > Grid@CommonStates > * > TextBlock#DisplayName",
+            L"GridViewItem > Border#ContentBorder@CommonStates > * > TextBlock#DisplayName",
+            L"ListViewItem > Grid#ContentBorder@CommonStates > * > TextBlock#DisplayName",
+            L"StartDocked.AllAppsGridListViewItem > Grid@CommonStates > * > TextBlock#DisplayName",
+
+            L"StartDocked.AppListViewItem > Grid@CommonStates > * > Windows.UI.Xaml.Controls.TextBlock#DisplayName",
+            L"GridViewItem > Border#ContentBorder@CommonStates > * > Windows.UI.Xaml.Controls.TextBlock#DisplayName",
+            L"ListViewItem > Grid#ContentBorder@CommonStates > * > Windows.UI.Xaml.Controls.TextBlock#DisplayName",
+            L"StartDocked.AllAppsGridListViewItem > Grid@CommonStates > * > Windows.UI.Xaml.Controls.TextBlock#DisplayName"
+        };
+
+        for (const auto& t : targets) {
+            AddElementCustomizationRules(t, hoverOpacityStyles);
+        }
     }
+
 
     if (!newFgBrush.empty()) {
         std::vector<std::wstring> fgStyles = {L"Foreground=" + newFgBrush};
