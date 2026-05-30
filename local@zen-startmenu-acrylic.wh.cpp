@@ -483,10 +483,14 @@ from the **TranslucentTB** project.
     - purple: "🟣 紫色 (Purple)"
     - pink: "🌸 粉色 (Pink)"
     - cyan: "💠 青色 (Cyan)"
-- hideLabelsUntilHover: false
-  $name: "👻 隐藏文字 (Hide Text Until Hover)"
+- labelVisibility: show
+  $name: "👻 文字显示模式 (Label Visibility)"
   $description: >-
-    启用后将隐藏应用和文件夹的文字，只有鼠标悬停时才会显示。
+    控制开始菜单中应用和文件夹的文字显示方式。
+  $options:
+    - show: "显示文字 (Show Text)"
+    - hide: "隐藏文字 (Hide Text)"
+    - hover: "悬浮显示文字 (Hover to Show)"
 - disableNewStartMenuLayout: ""
   $name: "📐 开始菜单布局 (Layout)"
   $description: >-
@@ -13691,8 +13695,14 @@ void ProcessAllStylesFromSettings() {
     }
     Wh_FreeStringSetting(textColorMode);
 
-    bool hideLabelsUntilHover = Wh_GetIntSetting(L"hideLabelsUntilHover");
-    if (hideLabelsUntilHover) {
+    PCWSTR labelVisibility = Wh_GetStringSetting(L"labelVisibility");
+    if (labelVisibility && wcscmp(labelVisibility, L"hide") == 0) {
+        std::vector<std::wstring> hideStyles = { L"Opacity=0" };
+        AddElementCustomizationRules(L"TextBlock#AppDisplayName", hideStyles);
+        AddElementCustomizationRules(L"Windows.UI.Xaml.Controls.TextBlock#AppDisplayName", hideStyles);
+        AddElementCustomizationRules(L"TextBlock#DisplayName", hideStyles);
+        AddElementCustomizationRules(L"Windows.UI.Xaml.Controls.TextBlock#DisplayName", hideStyles);
+    } else if (labelVisibility && wcscmp(labelVisibility, L"hover") == 0) {
         std::vector<std::wstring> hoverOpacityStyles = {
             L"Opacity@Normal=0",
             L"Opacity@PointerOver=1",
@@ -13726,6 +13736,7 @@ void ProcessAllStylesFromSettings() {
             AddElementCustomizationRules(t, hoverOpacityStyles);
         }
     }
+    Wh_FreeStringSetting(labelVisibility);
 
 
     if (!newFgBrush.empty()) {
